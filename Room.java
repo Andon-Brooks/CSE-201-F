@@ -4,8 +4,8 @@ public abstract class Room {
 
     private boolean wasGary;
 
-    Room() {
-
+    Room(String name) {
+        this.roomName = name;
     }
 
     public abstract void trap();
