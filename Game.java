@@ -12,30 +12,36 @@ public static class game {
     }
     
     /**
-     * Gives the option to resume, restat, quit, or get help
+     * Gives the option to Continue, restat, quit, or get help
      */
-    public void mainMenu() {
+    public void mainMenu(Scanner sc) {
+        System.out.Println("c -> Continue");
+        System.out.Println("r -> Restart");
+        System.out.Println("q -> Quit");
+        System.out.Println("What would you like to do? : ");
 
-    }
+        char choice = sc.next();
+        switch (choice) {
+            case 'c':
+                System.out.Println("continue message");
+                break;
+            case 'r':
+                System.out.Println("Restart Message");
+                break;
+            case 'q'
+                System.out.Println("Quit message");
+                // Gameover = true
+                break;
+            default:
+                System.out.Println("Invalid input, tery ")
 
-    /**
-     * 
-     */
-    private void printMainMenu() {
-
+        }
     }
 
     /**
      * 
      */
     public void helpMenu() {
-
-    }
-
-    /**
-     * 
-     */
-    private void printHelpMenu() {
 
     }
 
