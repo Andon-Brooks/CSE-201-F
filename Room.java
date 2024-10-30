@@ -5,6 +5,8 @@ public abstract class Room {
     private boolean wasGary;
 
     Room() {
+        
+
 
     }
 
