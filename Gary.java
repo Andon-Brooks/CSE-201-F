@@ -1,15 +1,19 @@
+import java.lang.Math;
 
 public class Gary {
-    private String currentRoom;
+    private Room currentRoom;
 
     private String name;
 
     Gary(String name) {
         this.name = name;
+        this.move();
     }
 
-    public String move() {
-        // currentRoom = ___;
-        return null;
+    public Room move() {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(roomList.size());
+        currentRoom = roomList.get(randomNumber);
+        return currentRoom;
     }
 }
