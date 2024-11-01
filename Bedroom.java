@@ -13,9 +13,9 @@ public class Bedroom extends Room {
         System.out.println("-------------------------");
         
         String userInput; 
+        boolean invalidChoice = false;
         
         do {
-           boolean invalidChoice = false;
            System.out.println("Enter the number that corresponds with how you want to enter the room");
            System.out.println("1 -> Fix the TV so it is will not fall");
            System.out.println("2 -> Close the window to prevent birds from coming in the bedroom");
@@ -34,7 +34,7 @@ public class Bedroom extends Room {
                 break;
             case "3":
                 System.out.println("You tried to throw a shoe at the birds. The birds were scared off, doing so you made it to the TV, then closed the window.");
-                System.out.println("However, you broke the lamp with the shoe, now you have lost time in cleaning up the mess you made.")
+                System.out.println("However, you broke the lamp with the shoe, now you have lost time in cleaning up the mess you made.");
                 //Subtract time
                 break;
             default:
@@ -52,9 +52,9 @@ public class Bedroom extends Room {
         System.out.println("Situation: Gary has placed a trap to deploy when you walk in, how do you want to enter the room?");
         System.out.println("-------------------------");
         String userInput; 
+        boolean invalidChoice = false;
         
         do {
-           boolean invalidChoice = false;
            System.out.println("Enter the number that corresponds with how you want to enter the room");
            System.out.println("1 -> Crawl into the room to avoid any swinging objects");
            System.out.println("2 -> Swing into the room to avoid a trap that could be placed on the ground");
@@ -90,9 +90,9 @@ public class Bedroom extends Room {
         System.out.println("-------------------------");
         
         String userInput; 
+        boolean invalidChoice = false;
         
         do {
-           boolean invalidChoice = false;
            System.out.println("Enter the number that corresponds with how you want to enter the room");
            System.out.println("1 -> Container under the bed");
            System.out.println("2 -> Hanging on the door");
