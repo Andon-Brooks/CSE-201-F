@@ -1,6 +1,6 @@
 
 public abstract class Room {
-    private string roomName;
+    public string roomName;
 
     public boolean wasGary;
 
