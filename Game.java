@@ -32,15 +32,16 @@ public static class game {
      * Gives the option to Continue, restat, quit, or get help
      */
     public void mainMenu(Scanner sc) {
-        System.out.Println("c -> Continue");
-        System.out.Println("r -> Restart");
-        System.out.Println("q -> Quit");
-        System.out.Println("What would you like to do? : ");
-
         String choice;
+        boolean unValid;
         do {
+            System.out.Println("c -> Continue");
+            System.out.Println("r -> Restart");
+            System.out.Println("q -> Quit");
+            System.out.Println("What would you like to do? : ");
+
             choice = sc.nextLine();
-            boolean unValid = false;
+            unValid = false;
             switch (choice) {
             case "c":
                 System.out.Println("continue message");
@@ -56,14 +57,14 @@ public static class game {
                 System.out.Println("Invalid input, try again ");
                 unValid = true;
             }
-        } while (!unValid);
+        } while (unValid);
         
     }
 
     /**
      * 
      */
-    public void helpMenu() {
+    public void helpMenu(Scanner sc) {
 
     }
 
