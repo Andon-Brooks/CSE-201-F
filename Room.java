@@ -1,11 +1,22 @@
-
 public abstract class Room {
-    public string roomName;
+    private String roomName;
+    private boolean wasGary;
 
-    public boolean wasGary;
+    Room(String roomName) {
+        this.roomName = roomName;
+        this.wasGary = false; // Initially, Gary has not been in this room
+    }
 
-    Room(String name) {
-        this.roomName = name;
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public boolean wasGary() {
+        return wasGary;
+    }
+
+    public void setWasGary(boolean wasGary) {
+        this.wasGary = wasGary;
     }
 
     public void situation() {
@@ -16,13 +27,13 @@ public abstract class Room {
         // otherwise print a message that says that gary isnt there and nothing is wrong
     }
 
-    private abstract void trap(Scanner sc);
-
-    private abstract void puzzle(Scanner sc);
-
-    private abstract void problem(Scanner sc);
-
-    private abstract void taunt(Scanner sc);
-
-    private abstract void catchGary(Scanner sc);
+    public abstract void trap();
+    
+    public abstract void puzzle();
+    
+    public abstract void problem();
+    
+    public abstract void taunt();
+    
+    public abstract void catchGary();
 }
