@@ -5,6 +5,12 @@ public class Living extends Room {
         super("Living");
     }
 
+    /*
+     * @param Scanner sc 
+     * This function describes a trap laid out by Gary in the living room. The scanner is used to
+     * scan for user input and correlate it with a set of options below. Depending on the choice,
+     * the player will either pick correctly or incorrectly, in which time is also deducted.
+     */
     @Override 
     public void trap(Scanner sc) {
         System.out.println("Room description: The living room, where all of your owner's friends come n' go.");
@@ -44,6 +50,12 @@ public class Living extends Room {
         } while (invalid);
     }
 
+    /*
+     * @param Scanner sc 
+     * This function describes a puzzle that Gary created. The scanner is used to
+     * scan for user input and correlate it with a set of options below. Depending on the choice,
+     * the player will either pick correctly or incorrectly, in which time is also deducted.
+     */
     @Override
     public void puzzle(Scanner sc) {
         System.out.println("Room description: The living room, where all of your owner's friends come n' go.");
@@ -83,6 +95,12 @@ public class Living extends Room {
         } while (invalid);
     }
 
+    /*
+     * @param Scanner sc 
+     * This function describes a problem in the room that Gary has caused. The scanner is used to
+     * scan for user input and correlate it with a set of options below. Depending on the choice,
+     * the player will either pick correctly or incorrectly, in which time is also deducted.
+     */
     @Override
     public void problem(Scanner sc) {
         System.out.println("Room description: The living room, where all of your owner's friends come n' go.");
@@ -122,11 +140,17 @@ public class Living extends Room {
         } while (invalid);
     }
 
+    /*
+     * This function prints out a taunt to indicate that Gary is in another room.
+     */
     @Override
     public void taunt() {
         System.out.println("Gary taunts you from another room!");
     }
 
+    /*
+     * This function is meant to run when Gary is about to be caught
+     */
     @Override
     public void catchGary() {
         //TODO: Next Iteration
