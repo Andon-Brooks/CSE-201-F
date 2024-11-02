@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Living extends Room {
+
     Living(String roomName, boolean wasGary) {
         super(roomName, wasGary);
     }

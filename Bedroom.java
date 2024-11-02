@@ -1,11 +1,29 @@
+/**
+ * Class: Bedroom 
+ * 
+ * Author: Group F CSE 201
+ * 
+ * This is child class of Room. This class is to implement one of the rooms 
+ * in our game for the user to interact with. The room will provide scenarios and effects based
+ * on user input to move around and solve various scenario in the bedroom.
+ */
 import java.util.Scanner;
 
 public class Bedroom extends Room {
 
+    /**
+     * Constructor to build the room.
+     */
     public Bedroom(){
         super("Bedroom");
     }
 
+    //methods
+    /**
+     * This will create the problem scenrio for the user in the bedroom.
+     * The player will input their choice and to solve the problem.
+     * param Scanner - user input
+     */
     @Override
     public void problem(Scanner sc){
         System.out.println("Room Description: This room is the bedroom. The bedroom is quiet and Gary has been known to spend most of his time hanging out in here. It contains a bed, tv and a dresser.");
@@ -45,6 +63,12 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
 
+    
+    /**
+     * This will create the trap scenrio for the user in the bedroom.
+     * The player will input their choice and to defeat the trap.
+     * param Scanner - user input
+     */
     @Override
     public void trap(Scanner sc){
 
@@ -83,6 +107,11 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
 
+    /**
+     * This will create the problem scenrio for the user in the bedroom.
+     * The player will input their choice and to figure out the puzzle.
+     * param Scanner - user input
+     */
     @Override
     public void puzzle(Scanner sc){
         System.out.println("Room Description: This room is the bedroom. The bedroom is quiet and Gary has been known to spend most of his time hanging out in here. It contains a bed and a dresser.");
@@ -121,11 +150,17 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
 
+    /**
+     * This method creates a sense of "fun" for the user and intensity.
+     * The method prints a string of Gary trashtalking the user.
+     * !Undecided on what it will say!
+     */
     @Override
-    public void taunt(Scanner sc){
+    public void taunt(){
         System.out.println("Next iteration");
     }
 
+    // Not implemented yet
     @Override
     public void catchGary(Scanner sc){
         System.out.println("next iteration");    
