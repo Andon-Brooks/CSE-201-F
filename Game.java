@@ -35,7 +35,7 @@ public class Game {
 
         gary = new Gary("mouse");
         currentRoom = firstRoom;
-        System.out.println("Game Starting message");
+        System.out.println("Welcome to Dom and Gary!!"); // Can change this if needed
     }
     
     /**
@@ -57,16 +57,16 @@ public class Game {
             unValid = false;
             switch (choice) {
             case "c":
-                System.out.println("continue message");
+                System.out.println("Contuine the Game!");
                 break;
             case "r":
-                System.out.println("Restart Message");
+                System.out.println("Restart not available yet");
                 break;
             case "h":
                 helpMenu(sc);
                 break;
             case "q":
-                System.out.println("Quit message");
+                System.out.println("You have quit the game!");
                 gameOver = true;
                 break;
             default:
@@ -138,7 +138,8 @@ public class Game {
         do {
             System.out.print("Where would you like to go? : ");
             choice = sc.nextLine();
-            if (!choice.equals("Back")) {
+            if (choice.equals("Back")) {
+                // System.out.println("MADE IT TO BACK"); // USed for testing
                 return;
             }
 
@@ -146,7 +147,9 @@ public class Game {
                 if (r.getRoomName().equals(choice)) {
                     gary.move();
                     currentRoom = r;
+                    // System.out.println("MADE IT TO SITUATION"); // Used for testing
                     r.situation(sc);
+                    // System.out.println("MADE IT PAST SITUATION"); // Used for Testing
                     return;
                 }
             }
