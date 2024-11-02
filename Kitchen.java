@@ -32,16 +32,17 @@ public class Kitchen extends Room {
         System.out.println("-------------------------");
 
 
-        String userInput = sc.nextLine();
+        String userInput;
         boolean invalidChoice = false;
 
         do {
-            switch (userInput) {
             System.out.println("You fell into a trap in the kitchen!");
-            System.out.println("Choose how to escape:");
             System.out.println("1. Use a frying pan to hit the trap.");
             System.out.println("2. Call for help.");
             System.out.println("3. Try to sneak out quietly.");
+            System.out.print("Choose how to escape:");
+            userInput = sc.nextLine();
+            switch (userInput) {
             case "1":
                 System.out.println("You hit the trap with the frying pan! It breaks open!");
                 break;
@@ -53,9 +54,9 @@ public class Kitchen extends Room {
                 break;
             default:
                 System.out.println("Invalid choice! You remain trapped.");
+                invalidChoice = true;
+            }
         } while(invalidChoice);
-        }
-        
     }
 
     /**
@@ -120,7 +121,7 @@ public class Kitchen extends Room {
            System.out.println("1 -> Sink, Fridge, Table");
            System.out.println("2 -> Pantry Sink, Fridge");
            System.out.println("3 -> Fridge, Pantry, Sink");
-           System.out.println("Please enter your option: ");
+           System.out.print("Please enter your option: ");
            userInput = sc.nextLine();
            
            switch(userInput){
@@ -149,7 +150,7 @@ public class Kitchen extends Room {
      * !Undecided on what it will say!
      */
     @Override
-    public void taunt() {
+    public void taunt(Scanner sc) {
         // Just a placeholder for taunt
         System.out.println("Gary taunts you from another room!");
     }
@@ -159,3 +160,4 @@ public class Kitchen extends Room {
     public void catchGary(Scanner sc){
         System.out.println("next iteration");    
     }
+}    

@@ -38,7 +38,7 @@ public class Bedroom extends Room {
            System.out.println("1 -> Fix the TV so it is will not fall");
            System.out.println("2 -> Close the window to prevent birds from coming in the bedroom");
            System.out.println("3 -> Try to distract the birds and fix the TV, then close the window");
-           System.out.println("Please enter your option: ");
+           System.out.print("Please enter your option: ");
            userInput = sc.nextLine();
            
            switch(userInput){
@@ -83,7 +83,7 @@ public class Bedroom extends Room {
            System.out.println("1 -> Crawl into the room to avoid any swinging objects");
            System.out.println("2 -> Swing into the room to avoid a trap that could be placed on the ground");
            System.out.println("3 -> Walk in normally assuming trap is elsewhere in the room");
-           System.out.println("Please enter your option: ");
+           System.out.print("Please enter your option: ");
            userInput = sc.nextLine();
            
            switch(userInput){
@@ -126,7 +126,7 @@ public class Bedroom extends Room {
            System.out.println("1 -> Container under the bed");
            System.out.println("2 -> Hanging on the door");
            System.out.println("3 -> In the dresser");
-           System.out.println("Please enter your option: ");
+           System.out.print("Please enter your option: ");
            userInput = sc.nextLine();
            
            switch(userInput){
@@ -156,7 +156,7 @@ public class Bedroom extends Room {
      * !Undecided on what it will say!
      */
     @Override
-    public void taunt(){
+    public void taunt(Scanner sc){
         System.out.println("Next iteration");
     }
 
