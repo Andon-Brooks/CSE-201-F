@@ -1,56 +1,133 @@
 import java.util.Scanner;
 
 public class Living extends Room {
-    Kitchen(String roomName) {
-        // super(roomName);
+    Living(String roomName, boolean wasGary) {
+        super(roomName, wasGary);
     }
 
     @Override 
-    trap(Scanner sc) {
-        System.out.println("Description of trap as done by Gary."); 
-        System.out.println("Your cat brain thinks up 4 ways to deal with this:");
-        System.out.println("Option 1");
-        System.out.println("Option 2");
-        System.out.println("Option 3");
-        System.out.println("Option 4");
-        System.out.print("What do?: ");
-        String user_input = sc.nextLine();
+    public void trap(Scanner sc) {
+        System.out.println("Room description: The living room, it has a coffee table, TV, and 3 houseplants in it."); 
+        System.out.println("Situation: Trap."); 
+        System.out.println("--------------------");
+        System.out.println("Enter the number that corresponds with how you want to enter the room:");
+        System.out.println("1 <- Option 1");
+        System.out.println("2 <- Option 2");
+        System.out.println("3 <- Option 3");
+        System.out.println("4 <- Option 4");
+        System.out.print("Please enter your option: ");
+        String user_input;
+        boolean unvalid;
+        unvalid = true;
 
-        switch (user_input) {
-            case "1":
-                System.out.println("Bad");
-                break;
-            case "2":
-                System.out.println("Also bad");
-                break;
-            case "3":
-                System.out.println("Super bad");
-                break;
-            case "4":
-                System.out.println("Correct");
-                break;
-            default:
-                System.out.println("You do nothing as [trap does thing].");
-        }
+        do {
+            user_input = sc.nextLine();
+            switch (user_input) {
+                case "1":
+                    System.out.println("Bad");
+                    unvalid = !unvalid;
+                    break;
+                case "2":
+                    System.out.println("Also bad");
+                    unvalid = !unvalid;
+                    break;
+                case "3":
+                    System.out.println("Super bad");
+                    unvalid = !unvalid;
+                    break;
+                case "4":
+                    System.out.println("Correct");
+                    unvalid = !unvalid;
+                    break;
+                default:
+                    unvalid = true;
+            }
+        } while (unvalid);
     }
 
     @Override
-    puzzle(Scanner sc) {
+    public void puzzle(Scanner sc) {
+        System.out.println("Situation: Puzzle."); 
+        System.out.println("Enter the number that corresponds with how you want to solve the puzzle:");
+        System.out.println("1 <- Option 1");
+        System.out.println("2 <- Option 2");
+        System.out.println("3 <- Option 3");
+        System.out.println("4 <- Option 4");
+        System.out.print("Please enter your option: ");
+        String user_input;
+        boolean unvalid;
+        unvalid = true;
 
+        do {
+            user_input = sc.nextLine();
+            switch (user_input) {
+                case "1":
+                    System.out.println("Bad");
+                    unvalid = !unvalid;
+                    break;
+                case "2":
+                    System.out.println("Also bad");
+                    unvalid = !unvalid;
+                    break;
+                case "3":
+                    System.out.println("Super bad");
+                    unvalid = !unvalid;
+                    break;
+                case "4":
+                    System.out.println("Correct");
+                    unvalid = !unvalid;
+                    break;
+                default:
+                    unvalid = true;
+            }
+        } while (unvalid);
     }
 
     @Override
-    problem(Scanner sc) {
+    public void problem(Scanner sc) {
+        System.out.println("Situation: Puzzle."); 
+        System.out.println("Enter the number that corresponds with how you want to solve the puzzle:");
+        System.out.println("1 <- Option 1");
+        System.out.println("2 <- Option 2");
+        System.out.println("3 <- Option 3");
+        System.out.println("4 <- Option 4");
+        System.out.print("Please enter your option: ");
+        String user_input;
+        boolean unvalid;
+        unvalid = true;
 
+        do {
+            user_input = sc.nextLine();
+            switch (user_input) {
+                case "1":
+                    System.out.println("Bad");
+                    unvalid = !unvalid;
+                    break;
+                case "2":
+                    System.out.println("Also bad");
+                    unvalid = !unvalid;
+                    break;
+                case "3":
+                    System.out.println("Super bad");
+                    unvalid = !unvalid;
+                    break;
+                case "4":
+                    System.out.println("Correct");
+                    unvalid = !unvalid;
+                    break;
+                default:
+                    unvalid = true;
+            }
+        } while (unvalid);
     }
 
     @Override
-    taunt() {
-        return "I've seen turtles move faster than you!";
+    public void taunt() {
+        System.out.println("Gary taunts you from another room!");
     }
 
     @Override
-    catchGary() {
-        
+    public void catchGary() {
+        //TODO: Next Iteration
     }
 }
