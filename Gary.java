@@ -1,4 +1,5 @@
 import java.util.Random;
+
 /**
  * This class is for Gary objects to be created
  */
@@ -6,8 +7,9 @@ public class Gary {
     // The current room Gary is in
     private Room currentRoom;
     
-    // The name of the Gary object (for cases where there are multiple)
-    private String name;
+    // Commenting this out just since it is not be used at the moment
+    // // The name of the Gary object (for cases where there are multiple)
+    // private String name;
 
     /**
      * Constructor for the Gary class
@@ -15,7 +17,7 @@ public class Gary {
      * @param name the name of the Gary object
      */
     Gary(String name) {
-        this.name = name;
+        //this.name = name;     // This constructor and variable is not even being used currently. Commented it out for Problem correction from the Terminal
         this.move();
     }
     
