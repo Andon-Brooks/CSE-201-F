@@ -6,7 +6,9 @@ import java.util.Scanner;
 public abstract class Room {
     // The name of the room
     private final String roomName;
-    
+
+    private boolean visited = false;    // Visited room    
+
     // Marked as true when Gary enters a room
     private boolean wasGary;
 
@@ -29,6 +31,16 @@ public abstract class Room {
         return roomName;
     }
 
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    
     /**
      * Getter method for wasGary
      * 
@@ -72,7 +84,7 @@ public abstract class Room {
         if (this.equals(Game.gary.getCurrentRoom())){
             this.catchGary(sc);
         } else if (this.wasGary != true) {
-            System.out.println("\nGary hasn't been in here so nothing is wrong!");
+            System.out.println("\nGary hasn't been in here so nothing is wrong!\n-----\n");
             return;
         } else {
             Random rand = new Random();
@@ -91,7 +103,7 @@ public abstract class Room {
                     this.taunt(sc);
                     break;
                 default:
-                    System.out.println("The situation choice method is messed up");
+                    System.out.println("\nThe situation choice method is messed up\n");
             }
         }
     }
