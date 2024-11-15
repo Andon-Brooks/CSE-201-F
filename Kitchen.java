@@ -27,7 +27,9 @@ public class Kitchen extends Room {
      */
     @Override
     public void trap(Scanner sc) {
-        System.out.println("Room Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
+        Game.trapsEncountered++;
+
+        System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
         System.out.println("Situation: There is a trap set in the kitchen, where option is the best to get around it?");
         System.out.println("-------------------------");
 
@@ -36,26 +38,52 @@ public class Kitchen extends Room {
         boolean invalidChoice = false;
 
         do {
-            System.out.println("You fell into a trap in the kitchen!");
+            invalidChoice = false;
+
+            System.out.println("You fell into a trap in the kitchen!\n");
             System.out.println("1. Use a frying pan to hit the trap.");
             System.out.println("2. Call for help.");
             System.out.println("3. Try to sneak out quietly.");
-            System.out.print("Choose how to escape:");
-            userInput = sc.nextLine();
+
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  // Forfeit option
+
+            System.out.print("\nChoose how to escape: ");
+            userInput = sc.nextLine().trim();
+
             switch (userInput) {
             case "1":
-                System.out.println("You hit the trap with the frying pan! It breaks open!");
+                System.out.println("\nYou hit the trap with the frying pan! It breaks open!\n---\n");
+                Game.clock.deductTime(5);     // Time deduction
+                Game.unsolvedTraps++;
                 break;
             case "2":
-                System.out.println("You call for help, but no one hears you.");
+                System.out.println("\nYou call for help, but no one hears you.\n---\n");
+                Game.clock.deductTime(5);     // Time deduction
+                Game.unsolvedTraps++;
                 break;
             case "3":
-                System.out.println("You sneak out quietly and escape the trap!");
+                System.out.println("\nYou sneak out quietly and escape the trap!\n---\n");
+                // No punishment here
+
+                Game.trapsSolved++;     // Traps solved counter for end of game summary
+                break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                Game.clock.deductTime(30);  // Time deduction
+                Game.forfeits++;    // Forfeit counter for end of game summary
+                Game.unsolvedTraps++;
                 break;
             default:
-                System.out.println("Invalid choice! You remain trapped.");
+                System.out.println("\nInvalid choice! You remain trapped. Please enter 1, 2, 3, or 4!");
+                System.out.println("---------------------------------------------------------------\n");
                 invalidChoice = true;
             }
+
+        if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
+            Game.gameOverTraps();
+            return;
+        }
+
         } while(invalidChoice);
     }
 
@@ -65,37 +93,50 @@ public class Kitchen extends Room {
      * param Scanner - user input
      */
     public void problem(Scanner sc){
-        System.out.println("Room Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
+        System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
         System.out.println("Situation: Gary has caused a major problem! He has clogged the sink and unplugged the fridge!");
         System.out.println("-------------------------");
         
         String userInput; 
         boolean invalidChoice = false;
+
+        Game.problemsEncountered++;     // Problems encountered counter for end of game summary
         
         do {
-           System.out.println("Enter the number that corresponds with how you want to handle the room's problems:");
+            invalidChoice = false;
+
+           System.out.println("Enter the number that corresponds with how you want to handle the room's problems:\n");
            System.out.println("1 -> Unclog the sink first.");
            System.out.println("2 -> Plug in the fridge first.");
            System.out.println("3 -> Try to quickly plug in the fridge, then unclog the sink.");
-           System.out.print("Please enter your option (1, 2, or 3): ");
-           userInput = sc.nextLine();
+           
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+
+           System.out.print("\nPlease enter your option: ");
+           userInput = sc.nextLine().trim();
            
            switch(userInput){
                 case "1":
-                    System.out.println("You have successfully unclogged the sink, but the food in the fridge has started to warm up.");
-                    // Subtract time 
+                    System.out.println("\nYou have successfully unclogged the sink, but the food in the fridge has started to warm up.\n---\n");
+                    Game.clock.deductTime(5);   // Time deduction
                     break;
                 case "2":
-                    System.out.println("You plugged in the fridge, saving the food, but the clogged sink has caused water to overflow.");
-                    // Subtract time
+                    System.out.println("\nYou plugged in the fridge, saving the food, but the clogged sink has caused water to overflow.\n---\n");
+                    Game.clock.deductTime(5);   // Time deduction
                     break;
                 case "3":
-                    System.out.println("You quickly plugged in the fridge and then unclogged the sink.");
-                    System.out.println("However, in your rush, you made a mess around the sink, costing you extra time to clean.");
-                    // Subtract time
+                    System.out.println("\nYou quickly plugged in the fridge and then unclogged the sink.");
+                    System.out.println("However, in your rush, you made a mess around the sink, costing you extra time to clean.\n---\n");
+                    Game.clock.deductTime(10);  // Time deduction
+                    break;
+                case "4":
+                    System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                    Game.clock.deductTime(30);  // Time deduction
+                    Game.forfeits++;    // Forfeit counter for end of game summary
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter 1, 2, or 3");
+                    System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                    System.out.println("-------------------------------------------\n");
                     invalidChoice = true;
             }   
         
@@ -108,7 +149,9 @@ public class Kitchen extends Room {
      * param Scanner - user input
      */
     public void puzzle(Scanner sc){
-        System.out.println("Room Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
+        Game.puzzlesEncountered++;  // End of game summary counter
+        
+        System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
         System.out.println("Situation: The puzzle will give you extra time! Determine the order to find the clue based on the riddle.");
         System.out.println("First: Go to the guardian of meals, then to the storage of preserved secrets, then where remenants and water meet.");
         System.out.println("-------------------------");
@@ -117,28 +160,41 @@ public class Kitchen extends Room {
         boolean invalidChoice = false;
         
         do {
-           System.out.println("Enter the number that corresponds with how you want to enter the room");
+            invalidChoice = false;
+
+           System.out.println("Enter the number that corresponds with how you want to enter the room:\n");
            System.out.println("1 -> Sink, Fridge, Table");
            System.out.println("2 -> Pantry Sink, Fridge");
            System.out.println("3 -> Fridge, Pantry, Sink");
-           System.out.print("Please enter your option: ");
-           userInput = sc.nextLine();
+           
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+
+           System.out.print("\nPlease enter your option: ");
+           userInput = sc.nextLine().trim();
            
            switch(userInput){
             case "1":
-                System.out.println("Incorrect order, puzzle not solved.");
-                // Subtract time
+                System.out.println("\nIncorrect order, puzzle not solved.\n---\n");
+                Game.clock.deductTime(5);   // Time deduction
                 break;
             case "2":
-                System.out.println("Puzzle not solved! No bonus!");
-                // subtract time 
+                System.out.println("\nPuzzle not solved! No bonus!\n---\n");
+                Game.clock.deductTime(5);   // Time deduction
                 break;
             case "3":
-                System.out.println("Correct order! Puzzle Solved");
+                System.out.println("\nCorrect order! Puzzle Solved!\n---\n");
                 // no punishment
+
+                Game.puzzlesSolved++;   // end of game summary counter
                 break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                Game.clock.deductTime(30);  // Time deduction
+                Game.forfeits++;    // end of game summary counter
+            break;
             default:
-                System.out.println("Invalid choice. Please enter 1, 2, or 3");
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                System.out.println("-------------------------------------------\n");
                 invalidChoice = true;
             }   
         } while(invalidChoice);
@@ -152,12 +208,15 @@ public class Kitchen extends Room {
     @Override
     public void taunt(Scanner sc) {
         // Just a placeholder for taunt
-        System.out.println("Gary taunts you from another room!");
+        System.out.println("\nGary taunts you from another room!\n---\n");
     }
 
-    // Not implemented yet
+    // Completed. Gary is able to be caught now
     @Override
     public void catchGary(Scanner sc){
-        System.out.println("next iteration");    
+        System.out.println("\nGary is in the kitchen! Dom caught him just in time!\n---\n");
+        Game.hasCaughtGary = true;
+        Game.gameOver = true;
+        Game.displayEndGameSummary();
     }
-}    
+}
