@@ -36,14 +36,16 @@ public class Game {
     /**
      * Creates Objects needed to start the Game
      * Also prints the game start message/ description
+     * 
+     * @param sc System.in Scanner passed to tutorial for user I/O
      */
-    public static void startGame() {
+    public static void startGame(Scanner sc) {
 
+        tutorial();
         roomList.clear();
 
         Room firstRoom = new Living();
         roomList.add(firstRoom);
-        // roomList.add(new LivingRoom());  // Confused by this room since we already have a 'Living' room option???
         roomList.add(new Kitchen());
         roomList.add(new Bedroom());
 
@@ -54,7 +56,14 @@ public class Game {
         
         gary = new Gary("mouse");
         currentRoom = firstRoom;
+    }
 
+    /**
+     * A simple tutorial class to walk the user through 3 rooms
+     * 
+     * @param sc System.in Scanner for user I/O
+     */
+    public static void tutorial (Scanner sc) {
         // Start of game description
         System.out.println("\n--------------------------------------------------");
         System.out.println("----------- Welcome to 'Dom and Gary'! -----------");
@@ -68,6 +77,50 @@ public class Game {
         System.out.println("before your owner returns home! Explore the rooms, avoid Garys traps, solve puzzles & problems, and try to catch him in time!");
         System.out.println("\nEach move takes time, so choose your actions wisely. Good luck!");
         
+        System.out.println("\nTutorial\n");
+        System.out.println("--------------------------------------------------\n");
+
+        ArrayList<Room> tList = new ArrayList<Room>();
+        tList.add(new Living());
+        tList.add(new Kitchen());
+        tList.add(new Bedroom());
+        printRooms(tList);
+
+        String choice;
+        boolean validChoice = false;
+
+        // This could be designed better but it is fine for what it is 
+        do {
+            System.out.print("Where would you like to go? : ");
+            choice = sc.nextLine().trim().toLowerCase();
+            System.out.println("-----------------------------\n");
+
+            for (int i = 0; i < tlist.size(); i++) {
+                if (tList.get(i).getRoomName().toLowerCase().equals(choice)) {
+                    validChoice = true;
+                    if (choice.trim().toLowerCase().equals("living")) {
+                        tList.get(i).situation(sc);
+                        tList.remove(i);
+                    }
+
+                    if (choice.trim().toLowerCase().equals("kitchen")) {
+                        tList.get(i).problem(sc);
+                        tlist.remove(i);
+                    }
+
+                    if (choice.trim().toLowerCase().equals("kitchen")) {
+                        tList.get(i).taunt(sc);
+                        tlist.remove(i)
+                    }
+                }
+            } 
+
+            if (!validChoice) {
+                System.out.println("\nInvalid choice, try again!");
+                System.out.println("--------------------------\n");
+            }
+        } while(!tList.isEmpty());
+
         System.out.println("\nThe game begins now...\n");
         System.out.println("--------------------------------------------------\n");
     }
@@ -77,7 +130,11 @@ public class Game {
      */
     public static void restartGame() {
         System.out.println("\nRestarting game...\n");
-        startGame();
+        System.out.println("Avalible rooms to move to: ");
+        printRooms(roomList);
+        System.out.println();
+
+
     }
 
     /**
@@ -91,7 +148,7 @@ public class Game {
         do {
             System.out.println("\nc -> Continue");
             System.out.println("r -> Restart");
-            System.out.println("h -> Help Menu");
+            // System.out.println("h -> Help Menu");
 
             System.out.println("m -> Check Map");
             System.out.println("t -> Time Summary");    // I changed it from 'Health' Summary to 'Time' Summary. We don't really have a health application for Dom. At least not yet.
@@ -112,9 +169,9 @@ public class Game {
             case "r":
                 restartGame();
                 break;
-            case "h":
-                helpMenu(sc);
-                break;
+            // case "h":
+            //     helpMenu(sc);
+            //     break;
             case "m":
                 checkMap();
                 break;
@@ -135,54 +192,54 @@ public class Game {
         } while (unValid);
     }
 
-    /**
-     * Help menu with different help options
-     * 
-     * @param sc System.in Scanner for user I/O
-     */
-    public static void helpMenu(Scanner sc) {
-        String choice;
-        boolean unValid;
-        do {
-            System.out.println("\n\n--- Help Menu ---\n");
-            System.out.println("1 -> Help message 1");
-            System.out.println("2 -> Help message 2");
-            System.out.println("3 -> Help message 3");
-            System.out.println("b -> Go Back");
-            System.out.print("\nWhat would you like to do? : ");
+    // /**
+    //  * Help menu with different help options
+    //  * 
+    //  * @param sc System.in Scanner for user I/O
+    //  */
+    // public static void helpMenu(Scanner sc) {
+    //     String choice;
+    //     boolean unValid;
+    //     do {
+    //         System.out.println("\n\n--- Help Menu ---\n");
+    //         System.out.println("1 -> Help message 1");
+    //         System.out.println("2 -> Help message 2");
+    //         System.out.println("3 -> Help message 3");
+    //         System.out.println("b -> Go Back");
+    //         System.out.print("\nWhat would you like to do? : ");
 
-            choice = sc.nextLine();
-            System.out.println("------------------------------");
-            unValid = false;
+    //         choice = sc.nextLine();
+    //         System.out.println("------------------------------");
+    //         unValid = false;
 
-            switch (choice) {
-            case "1":
-                System.out.println("\nHelp message one still needs to be created\n");
-                break;
-            case "2":
-                System.out.println("\nHelp message two still needs to be created\n");
-                break;
-            case "3":
-                System.out.println("\nHelp message three still needs to be created\n");
-                break;
-            case "b":
-                System.out.println("\nGoing Back...");
-                System.out.println("-------------\n");
-                break;
-            default:
-                System.out.println("\nInvalid input, try again!");
-                System.out.println("-------------------------");
-                unValid = true;
-            }
-        } while (unValid);
-    }
+    //         switch (choice) {
+    //         case "1":
+    //             System.out.println("\nHelp message one still needs to be created\n");
+    //             break;
+    //         case "2":
+    //             System.out.println("\nHelp message two still needs to be created\n");
+    //             break;
+    //         case "3":
+    //             System.out.println("\nHelp message three still needs to be created\n");
+    //             break;
+    //         case "b":
+    //             System.out.println("\nGoing Back...");
+    //             System.out.println("-------------\n");
+    //             break;
+    //         default:
+    //             System.out.println("\nInvalid input, try again!");
+    //             System.out.println("-------------------------");
+    //             unValid = true;
+    //         }
+    //     } while (unValid);
+    // }
 
     /**
      * Helper method that prints a String containing all room names
      */
-    private static void printRooms() {
+    private static void printRooms(ArrayList<Room> list) {
         String result = "   ";
-        for (Room r : roomList) {
+        for (Room r : list) {
             result += r.getRoomName() + "   ";
         }
         System.out.println(result);
@@ -199,7 +256,7 @@ public class Game {
 
         System.out.println("\n\nEnter 'Back' to go back\n");
         System.out.println("Avalible rooms to move to: ");
-        printRooms();
+        printRooms(roomList);
         System.out.println();
 
         String choice;
