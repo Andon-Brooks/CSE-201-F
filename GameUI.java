@@ -6,7 +6,7 @@ public class GameUI {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        Game.startGame();
+        Game.startGame(Scanner sc);
         String choice;
 
         do {
