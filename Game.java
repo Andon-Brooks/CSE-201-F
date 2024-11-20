@@ -18,26 +18,125 @@ public class Game {
     // Holds the current room that the user is in
     private static Room currentRoom;
 
+    public static Clock clock = new Clock();
+    public static boolean hasCaughtGary = false;
+    
+    // End of game summary counters
+    public static int forfeits = 0;
+    public static int trapsEncountered = 0;
+    public static int trapsSolved = 0;
+    public static int problemsEncountered = 0;
+    public static int puzzlesEncountered = 0;
+    public static int puzzlesSolved = 0;
+
+    // Variables for if user doesn't solve enough traps, then they lose
+    public static int unsolvedTraps = 0;
+    public static final int MAX_UNSOLVED_TRAPS = 5;
+
     /**
      * Creates Objects needed to start the Game
      * Also prints the game start message/ description
+     * 
+     * @param sc System.in Scanner passed to tutorial for user I/O
      */
-    public static void startGame() {
+    public static void startGame(Scanner sc) {
+
+        tutorial();
+        roomList.clear();
+
         Room firstRoom = new Living();
         roomList.add(firstRoom);
-        // roomList.add(new LivingRoom());
         roomList.add(new Kitchen());
         roomList.add(new Bedroom());
-        // roomList.add(new Bathroom());
-        // roomList.add(new DinningRoom());
-        // roomList.add(new Office());
-        // roomList.add(new LaundryRoom());
 
+        // New added rooms
+        roomList.add(new Bathroom());
+        roomList.add(new Office());
+        roomList.add(new DiningRoom());
+        
         gary = new Gary("mouse");
         currentRoom = firstRoom;
-        System.out.println("Game Starting message");
     }
-    
+
+    /**
+     * A simple tutorial class to walk the user through 3 rooms
+     * 
+     * @param sc System.in Scanner for user I/O
+     */
+    public static void tutorial (Scanner sc) {
+        // Start of game description
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("----------- Welcome to 'Dom and Gary'! -----------");
+        System.out.println("--------------------------------------------------\n");
+
+        System.out.println("Your owner has just left for work and will be gone from 12:00 pm to 4:00 pm.");
+        System.out.println("This gives you exactly 4 hours to catch Gary, the mischievous mouse, before the owner returns.");
+        System.out.println("Use your time wisely and avoid distractions, as every minute counts!\n");
+
+        System.out.println("In this game, you play as Dom, a housecat with one goal... to catch Gary, the mischievous mouse,");
+        System.out.println("before your owner returns home! Explore the rooms, avoid Garys traps, solve puzzles & problems, and try to catch him in time!");
+        System.out.println("\nEach move takes time, so choose your actions wisely. Good luck!");
+        
+        System.out.println("\nTutorial\n");
+        System.out.println("--------------------------------------------------\n");
+
+        ArrayList<Room> tList = new ArrayList<Room>();
+        tList.add(new Living());
+        tList.add(new Kitchen());
+        tList.add(new Bedroom());
+        printRooms(tList);
+
+        String choice;
+        boolean validChoice = false;
+
+        // This could be designed better but it is fine for what it is 
+        do {
+            System.out.print("Where would you like to go? : ");
+            choice = sc.nextLine().trim().toLowerCase();
+            System.out.println("-----------------------------\n");
+
+            for (int i = 0; i < tlist.size(); i++) {
+                if (tList.get(i).getRoomName().toLowerCase().equals(choice)) {
+                    validChoice = true;
+                    if (choice.trim().toLowerCase().equals("living")) {
+                        tList.get(i).situation(sc);
+                        tList.remove(i);
+                    }
+
+                    if (choice.trim().toLowerCase().equals("kitchen")) {
+                        tList.get(i).problem(sc);
+                        tlist.remove(i);
+                    }
+
+                    if (choice.trim().toLowerCase().equals("kitchen")) {
+                        tList.get(i).taunt(sc);
+                        tlist.remove(i)
+                    }
+                }
+            } 
+
+            if (!validChoice) {
+                System.out.println("\nInvalid choice, try again!");
+                System.out.println("--------------------------\n");
+            }
+        } while(!tList.isEmpty());
+
+        System.out.println("\nThe game begins now...\n");
+        System.out.println("--------------------------------------------------\n");
+    }
+
+    /**
+     * Resets and restarts the Game.
+     */
+    public static void restartGame() {
+        System.out.println("\nRestarting game...\n");
+        System.out.println("Avalible rooms to move to: ");
+        printRooms(roomList);
+        System.out.println();
+
+
+    }
+
     /**
      * Gives the option to Continue, restart, quit, or get help
      * 
@@ -47,78 +146,100 @@ public class Game {
         String choice;
         boolean unValid;
         do {
-            System.out.println("c -> Continue");
+            System.out.println("\nc -> Continue");
             System.out.println("r -> Restart");
-            System.out.println("h -> Help Menu");
+            // System.out.println("h -> Help Menu");
+
+            System.out.println("m -> Check Map");
+            System.out.println("t -> Time Summary");    // I changed it from 'Health' Summary to 'Time' Summary. We don't really have a health application for Dom. At least not yet.
+
             System.out.println("q -> Quit");
-            System.out.print("What would you like to do? : ");
+            System.out.print("\nWhat would you like to do? : ");
 
             choice = sc.nextLine();
+            System.out.println("------------------------------");
+
             unValid = false;
+
             switch (choice) {
             case "c":
-                System.out.println("continue message");
+                System.out.println("\nContuine the Game!");
+                System.out.println("------------------\n");
                 break;
             case "r":
-                System.out.println("Restart Message");
+                restartGame();
                 break;
-            case "h":
-                helpMenu(sc);
+            // case "h":
+            //     helpMenu(sc);
+            //     break;
+            case "m":
+                checkMap();
+                break;
+            case "t":
+                displayTimeSummary();
                 break;
             case "q":
-                System.out.println("Quit message");
+                System.out.println("\nYou have quit the game!");
+                System.out.println("-----------------------\n");
                 gameOver = true;
+                displayStats();
                 break;
             default:
-                System.out.println("Invalid input, try again ");
+                System.out.println("\nInvalid input, try again!");
+                System.out.println("-------------------------");
                 unValid = true;
             }
         } while (unValid);
     }
 
-    /**
-     * Help menu with different help options
-     * 
-     * @param sc System.in Scanner for user I/O
-     */
-    public static void helpMenu(Scanner sc) {
-        String choice;
-        boolean unValid;
-        do {
-            System.out.println("0 -> Help message 0");
-            System.out.println("1 -> Help message 1");
-            System.out.println("2 -> Help message 2");
-            System.out.println("b -> Go Back");
-            System.out.print("What would you like to do? : ");
+    // /**
+    //  * Help menu with different help options
+    //  * 
+    //  * @param sc System.in Scanner for user I/O
+    //  */
+    // public static void helpMenu(Scanner sc) {
+    //     String choice;
+    //     boolean unValid;
+    //     do {
+    //         System.out.println("\n\n--- Help Menu ---\n");
+    //         System.out.println("1 -> Help message 1");
+    //         System.out.println("2 -> Help message 2");
+    //         System.out.println("3 -> Help message 3");
+    //         System.out.println("b -> Go Back");
+    //         System.out.print("\nWhat would you like to do? : ");
 
-            choice = sc.nextLine();
-            unValid = false;
-            switch (choice) {
-            case "0":
-                System.out.println("Help message zero");
-                break;
-            case "1":
-                System.out.println("Help message one");
-                break;
-            case "2":
-                System.out.println("Help message two");
-                break;
-            case "b":
-                System.out.println("Go BAck");
-                break;
-            default:
-                System.out.println("Invalid input, try again ");
-                unValid = true;
-            }
-        } while (unValid);
-    }
+    //         choice = sc.nextLine();
+    //         System.out.println("------------------------------");
+    //         unValid = false;
+
+    //         switch (choice) {
+    //         case "1":
+    //             System.out.println("\nHelp message one still needs to be created\n");
+    //             break;
+    //         case "2":
+    //             System.out.println("\nHelp message two still needs to be created\n");
+    //             break;
+    //         case "3":
+    //             System.out.println("\nHelp message three still needs to be created\n");
+    //             break;
+    //         case "b":
+    //             System.out.println("\nGoing Back...");
+    //             System.out.println("-------------\n");
+    //             break;
+    //         default:
+    //             System.out.println("\nInvalid input, try again!");
+    //             System.out.println("-------------------------");
+    //             unValid = true;
+    //         }
+    //     } while (unValid);
+    // }
 
     /**
      * Helper method that prints a String containing all room names
      */
-    private static void printRooms() {
+    private static void printRooms(ArrayList<Room> list) {
         String result = "   ";
-        for (Room r : roomList) {
+        for (Room r : list) {
             result += r.getRoomName() + "   ";
         }
         System.out.println(result);
@@ -131,41 +252,149 @@ public class Game {
      * @param sc System.in Scanner for user I/O
      */
     public static void move(Scanner sc) {
-            System.out.println("\nEnter 'Back' to go back");
-            System.out.println("Avalible rooms to move to: ");
-            printRooms();
-            String choice;
+        if (gameOver) return;  // Prevent further moves if the game is over
+
+        System.out.println("\n\nEnter 'Back' to go back\n");
+        System.out.println("Avalible rooms to move to: ");
+        printRooms(roomList);
+        System.out.println();
+
+        String choice;
+
         do {
             System.out.print("Where would you like to go? : ");
-            choice = sc.nextLine();
-            if (!choice.equals("Back")) {
+            choice = sc.nextLine().trim().toLowerCase();
+            System.out.println("-----------------------------\n");
+
+            if (choice.trim().toLowerCase().equals("back")) {
+                // System.out.println("MADE IT TO BACK"); // USed for testing
                 return;
             }
 
+            if (gameOver) return;  // Check if game ended due to time running out
+
+            boolean validChoice = false;
             for (Room r : roomList) {
-                if (r.getRoomName().equals(choice)) {
+                if (r.getRoomName().toLowerCase().equals(choice)) {
+                    validChoice = true;
+                    clock.deductTime(5);
                     gary.move();
                     currentRoom = r;
+                    // System.out.println("MADE IT TO SITUATION"); // Used for testing
+                    currentRoom.setVisited(true);
+
+                    if (currentRoom.equals(gary.getCurrentRoom())) {
+                        catchGary();
+                        return;
+                    }
+
                     r.situation(sc);
+                    // System.out.println("MADE IT PAST SITUATION"); // Used for Testing
                     return;
                 }
             }
-            System.out.println("Invalid choice, try again! ");
+
+            if (!validChoice) {
+                System.out.println("\nInvalid choice, try again!");
+                System.out.println("--------------------------\n");
+            }
+
         } while(!choice.equals("Back"));
     }
+
+
+
+    public static void checkMap() {
+
+        clock.pause();
+
+        System.out.println("\n\n------- Dom's Map -------\n");
+        System.out.println("Visited Rooms:");
+        for (Room r : roomList) {
+            if (r.isVisited()) {
+                System.out.println("- " + r.getRoomName());
+            }
+        }
+        System.out.println("-------------------------\n");
+        
+        clock.resume();
+    }
+
+    public static void displayTimeSummary() {
+        System.out.println("\n\n---------- Dom's Time Summary ----------\n");
+
+        // Display time left before the owner returns
+        System.out.println("Time Remaining: " + clock.getRemainingTime());
+    
+        // // List visited rooms
+        // System.out.println("Visited Rooms:");
+        // for (Room r : roomList) {
+        //     if (r.isVisited()) {
+        //         System.out.println("- " + r.getRoomName());      // There is an option for this in the 'Check Map' option though, so I don't think we need this
+        //     }
+        // }
+    
+        System.out.println("-------------------------------------\n");
+    }
+
+    public static void catchGary() {
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+        System.out.println("\nCONGRATULATIONS! DOM HAS CAUGHT GARY!!!");
+        hasCaughtGary = true;
+        gameOver = true; // End the game as a win
+        displayEndGameSummary();
+    }
+
+    public static void displayEndGameSummary() {
+        System.out.println("\n---------- End of Game Summary ----------\n");
+
+        if (!hasCaughtGary && (clock.getHours() == 0 && clock.getMinutes() == 0)) {
+            // Time ran out
+            System.out.println("Time has run out! Your owner has returned home, and Gary is still loose!\n");
+            System.out.println("GAME OVER - YOU LOST! :(\n");
+        } else if (hasCaughtGary) {
+            // Gary was caught with time limit
+            System.out.println("CONGRATULATIONS, YOU HAVE WON!!! :)\n");
+            System.out.println("You found Gary with... " + clock.getRemainingTime() + " to spare!");
+        }
+
+        displayStats();
+        gameOver = true;
+    }
+
+
+
+    public static void displayStats() {
+        System.out.println("\n------------- Game Statistics -------------\n");
+        System.out.println("Problems Encountered: " + problemsEncountered);
+        System.out.println("Traps Encountered: " + trapsEncountered + " | Traps Solved: " + trapsSolved);
+        System.out.println("Puzzles Encountered: " + puzzlesEncountered + " | Puzzles Solved: " + puzzlesSolved);
+        System.out.println("Turns Forfeited: " + forfeits);
+        System.out.println("------------------------------------------\n");
+    }
+
+    public static void gameOverTraps() {
+        System.out.println("\n--- GAME OVER! ---\n");
+        System.out.println("Dom has been caught in too many traps and can't continue!\n");
+        gameOver = true;
+        displayEndGameSummary();
+    }
+
+
 
     /**
      * Prints a notification containing...
      */
     public void notification() {
-        System.out.println("This is a notification full of information");
+        System.out.println("This is a notification full of information");   // Not sure what this method is for
     }
 
     /**
      * Prints game over message stating how and why the game ended
      */
     public static void gameOverMessage() {
-        System.out.println("Game Over :(");
+        System.out.println("Game Over!");
+        System.out.println("----------\n");
     }
     
     /**
