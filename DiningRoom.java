@@ -1,11 +1,32 @@
+/**
+ * Class: DiningRoom
+ * 
+ * Author: Group F CSE 201
+ * 
+ * This is a child class of Room. This class represents the dining room in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
+ */
 import java.util.Scanner;
 
 public class DiningRoom extends Room {
 
+    /**
+     * Constructor to build the room and pass the room name to the parent class.
+     */
     public DiningRoom() {
         super("DiningRoom");
     }
+    
+    // Methods:
 
+    /**
+     * Creates the trap scenario for the user in the Dining Room.
+     * The player inputs a choice to avoid the falling chandelier trap.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -64,7 +85,13 @@ public class DiningRoom extends Room {
 
         } while (invalidChoice);
     }
-
+    
+    /**
+     * Creates a puzzle scenario for the user in the Dining Room.
+     * The player inputs a choice to solve the puzzle involving a table arrangement.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void puzzle(Scanner sc) {
         Game.puzzlesEncountered++;
@@ -113,7 +140,13 @@ public class DiningRoom extends Room {
             }
         } while (invalidChoice);
     }
-
+    
+    /**
+     * Creates a problem scenario for the user in the Dining Room.
+     * The player chooses an option to handle the spilled soup problem.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void problem(Scanner sc) {
         Game.problemsEncountered++;
@@ -163,12 +196,23 @@ public class DiningRoom extends Room {
 
         } while (invalidChoice);
     }
-
+    
+    /**
+     * Provides a taunt scenario for the user in the Dining Room.
+     * Gary mocks the player with a clue about his location.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void taunt(Scanner sc) {
         System.out.println("\nGary left a crumb trail to mock you, hinting he's hiding somewhere else!\n---\n");
     }
 
+    /**
+     * Catches Gary in the Dining Room and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void catchGary(Scanner sc) {
         System.out.println("\nGary is hiding under the dining table! You've caught him!\n---\n");
