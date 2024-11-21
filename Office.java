@@ -1,11 +1,11 @@
 /**
- * Class: Office 
+ * Class: Office
  * 
  * Author: Group F CSE 201
  * 
- * This is child class of Room. This class is to implement one of the rooms 
- * in our game for the user to interact with. The room will provide scenarios and effects based
- * on user input.
+ * This is a child class of Room. This class represents the office in our game, 
+ * where players encounter unique challenges, including traps, puzzles, and problems. 
+ * Each scenario requires players to make choices that impact the game state differently.
  */
 import java.util.Scanner;
 
@@ -19,12 +19,13 @@ public class Office extends Room {
     }
     
     // Methods:
+
     /**
-    * Creates the trap scenario for the user in the Office.
-    * The player inputs a choice to escape the trap.
-    * 
-    * @param sc Scanner object for user input.
-    */
+     * Creates the trap scenario for the user in the Office.
+     * The player inputs a choice to escape a falling stack of books.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -83,7 +84,7 @@ public class Office extends Room {
 
     /**
      * Creates a puzzle scenario for the user in the Office.
-     * The player inputs a choice to solve the puzzle.
+     * The player must solve a riddle to unlock a drawer and obtain clues.
      * 
      * @param sc Scanner object for user input.
      */
@@ -137,7 +138,7 @@ public class Office extends Room {
 
     /**
      * Creates a problem scenario for the user in the Office.
-     * The player chooses an option to solve the problem.
+     * The player decides how to handle loud music playing on a computer.
      * 
      * @param sc Scanner object for user input.
      */
@@ -189,7 +190,8 @@ public class Office extends Room {
     }
     
     /**
-     * Provides a taunt from Gary to the player, increasing the game's intensity.
+     * Provides a taunt scenario for the user in the Office.
+     * Gary leaves a clue mocking the player.
      * 
      * @param sc Scanner object for user input.
      */
