@@ -44,7 +44,7 @@ public class Bedroom extends Room {
            System.out.println("2 -> Close the window to prevent birds from coming in the bedroom");
            System.out.println("3 -> Try to distract the birds and fix the TV, then close the window");
            
-           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   
 
            System.out.print("\nPlease enter your option: ");
            userInput = sc.nextLine().trim();
@@ -52,21 +52,21 @@ public class Bedroom extends Room {
            switch(userInput){
             case "1":
                 System.out.println("\nYou have stopped the TV from falling, although the birds have entered the room.\n---\n");
-                Game.clock.deductTime(5);   // Time deduction
+                Game.clock.deductTime(5);   
                 break;
             case "2":
                 System.out.println("\nYou have sucessfully gotten the birds out and close the window, however the TV has shattered.\n---\n");
-                Game.clock.deductTime(10);  // Time deduction
+                Game.clock.deductTime(10);  
                 break;
             case "3":
                 System.out.println("\nYou tried to throw a shoe at the birds. The birds were scared off, doing so you made it to the TV, then closed the window.");
                 System.out.println("However, you broke the lamp with the shoe, now you have lost time in cleaning up the mess you made.\n---\n");
-                Game.clock.deductTime(15);  // Time deduction
+                Game.clock.deductTime(15);  
                 break;
             case "4":
                 System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                Game.clock.deductTime(30);  // Time deduction
-                Game.forfeits++;    // Forfeited turn counter for end of game summary
+                Game.clock.deductTime(30);  
+                Game.forfeits++;    
             break;
             default:
                 System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
@@ -101,7 +101,7 @@ public class Bedroom extends Room {
            System.out.println("2 -> Swing into the room to avoid a trap that could be placed on the ground");
            System.out.println("3 -> Walk in normally assuming trap is elsewhere in the room");
            
-           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   
 
            System.out.print("\nPlease enter your option: ");
            userInput = sc.nextLine().trim();
@@ -166,7 +166,7 @@ public class Bedroom extends Room {
            System.out.println("2 -> Hanging on the door");
            System.out.println("3 -> In the dresser");
 
-           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   
 
            System.out.print("\nPlease enter your option: ");
            userInput = sc.nextLine().trim();
