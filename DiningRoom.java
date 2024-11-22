@@ -9,7 +9,9 @@
  * each affecting the game state differently.
  */
 import java.util.Scanner;
-
+/*
+* Child class of room to represent a DiningROom
+*/
 public class DiningRoom extends Room {
 
     /**
@@ -205,7 +207,7 @@ public class DiningRoom extends Room {
     public void taunt(Scanner sc) {
         System.out.println("\nGary left a crumb trail to mock you, hinting he's hiding somewhere else!\n---\n");
     }
-
+  
     /**
      * Catches Gary in the Dining Room and triggers the end game summary.
      * 

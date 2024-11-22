@@ -12,7 +12,6 @@
 import java.util.Scanner;
 
 public class Kitchen extends Room {
-
     /**
      *  Constructor to build the room and pass the room name to the parent class.
      */
@@ -78,11 +77,10 @@ public class Kitchen extends Room {
                 invalidChoice = true;
             }
 
-        if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
+            if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
             Game.gameOverTraps();
             return;
-        }
-
+            }
         } while(invalidChoice);
     }
 

@@ -10,6 +10,9 @@
  */
 import java.util.Scanner;
 
+/*
+* Child class of room that represents a bathroom
+*/
 public class Bathroom extends Room {
     
     /**

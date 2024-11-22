@@ -11,7 +11,7 @@
 import java.util.Scanner;
 
 public class Bedroom extends Room {
-
+  
     /**
      * Constructor to build the room and pass the room name to the parent class.
      */
