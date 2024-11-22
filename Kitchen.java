@@ -142,8 +142,9 @@ public class Kitchen extends Room {
         
         } while(invalidChoice);
     }
+    
     /**
-     * This will create the problem scenrio for the user in the kitchen.
+     * Creates a puzzle scenario for the user in the Kitchen.
      * The player will input their choice and to figure out the puzzle.
      *
      * @param sc Scanner object for user input.
