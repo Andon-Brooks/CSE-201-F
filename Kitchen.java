@@ -11,20 +11,18 @@
 import java.util.Scanner;
 
 public class Kitchen extends Room {
-
     /**
-     * Constructor to build the room.
+     * Constructor to build the Kitchen.
      */
     public Kitchen() {
         super("Kitchen"); // Pass "Kitchen" to the Room constructor
     }
 
-    //methods
-    /**
-     * This will create the trap scenrio for the user in the kitchen.
-     * The player will input their choice and to defeat the trap.
-     * param Scanner - user input
-     */
+    /*
+    * Method that presents a trrap to the user relevant to the Kitchen
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -79,19 +77,18 @@ public class Kitchen extends Room {
                 invalidChoice = true;
             }
 
-        if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
+            if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
             Game.gameOverTraps();
             return;
-        }
-
+            }
         } while(invalidChoice);
     }
 
-    /**
-     * This will create the problem scenrio for the user in the kitchen.
-     * The player will input their choice and to solve the problem.
-     * param Scanner - user input
-     */
+    /*
+    * Method that presents a probelm to the user relevant to the Kitchen
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     public void problem(Scanner sc){
         System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
         System.out.println("Situation: Gary has caused a major problem! He has clogged the sink and unplugged the fridge!");
@@ -143,11 +140,11 @@ public class Kitchen extends Room {
         } while(invalidChoice);
     }
 
-    /**
-     * This will create the problem scenrio for the user in the kitchen.
-     * The player will input their choice and to figure out the puzzle.
-     * param Scanner - user input
-     */
+    /*
+    * Method that presents a puzzle to the user relevant to the Kitchen
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     public void puzzle(Scanner sc){
         Game.puzzlesEncountered++;  // End of game summary counter
         
@@ -200,18 +197,22 @@ public class Kitchen extends Room {
         } while(invalidChoice);
     }
 
-    /**
-     * This method creates a sense of "fun" for the user and intensity.
-     * The method prints a string of Gary trashtalking the user.
-     * !Undecided on what it will say!
-     */
+    /*
+    * Method that presents a taunt to the user relevant to the Kitchen
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void taunt(Scanner sc) {
         // Just a placeholder for taunt
         System.out.println("\nGary taunts you from another room!\n---\n");
     }
 
-    // Completed. Gary is able to be caught now
+    /*
+    * Method that presents a catch gary situation to the user relevant to the Kitchen
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void catchGary(Scanner sc){
         System.out.println("\nGary is in the kitchen! Dom caught him just in time!\n---\n");

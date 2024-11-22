@@ -1,11 +1,21 @@
 import java.util.Scanner;
 
+/*
+* Child class of room that represents a bathroom
+*/
 public class Bathroom extends Room {
-
+    /*
+    * Constructor of Bathroom, calls to Room with the name Bathroom
+    */
     public Bathroom() {
         super("Bathroom");
     }
 
+    /*
+    * Method that presents a problem to the user relevant to the bathroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void problem(Scanner sc) {
         System.out.println("\nRoom Description: This is the bathroom. It's steamy, and water is splashing everywhere.");
@@ -58,6 +68,11 @@ public class Bathroom extends Room {
         } while (invalidChoice);
     }
 
+    /*
+    * Method that presents a trap to the user relevant to the bathroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -121,6 +136,11 @@ public class Bathroom extends Room {
         } while (invalidChoice);
     }
 
+    /*
+    * Method that presents a puzzle to the user relevant to the bathroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void puzzle(Scanner sc) {
         Game.puzzlesEncountered++;
@@ -176,11 +196,21 @@ public class Bathroom extends Room {
         } while (invalidChoice);
     }
 
+    /*
+    * Method that presents a taunt to the user relevant to the bathroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void taunt(Scanner sc) {
         System.out.println("\nGary left a message on the mirror: 'You'll never catch me in time!'\n---\n");
     }
 
+    /*
+    * Method that presents a catch gary situation to the user relevant to the bathroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void catchGary(Scanner sc) {
         System.out.println("\nGary was hiding behind the shower curtain! You caught him!\n---\n");
