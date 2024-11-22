@@ -1,28 +1,29 @@
 /**
  * Class: Bedroom 
  * 
- * Author: Group F CSE 201
+ * @author: Group F CSE 201
  * 
- * This is child class of Room. This class is to implement one of the rooms 
- * in our game for the user to interact with. The room will provide scenarios and effects based
- * on user input to move around and solve various scenario in the bedroom.
+ * This is a child class of Room. This class represents the bedroom in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
  */
 import java.util.Scanner;
 
 public class Bedroom extends Room {
 
     /**
-     * Constructor to build the room.
+     * Constructor to build the room and pass the room name to the parent class.
      */
     public Bedroom(){
         super("Bedroom");
     }
 
-    //methods
     /**
-     * This will create the problem scenrio for the user in the bedroom.
-     * The player will input their choice and to solve the problem.
-     * param Scanner - user input
+     * Creates a problem scenario for the user in the Bedroom.
+     * The player selects an option to address the issue of an unstable TV and an open window.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override
     public void problem(Scanner sc){
@@ -33,7 +34,7 @@ public class Bedroom extends Room {
         String userInput; 
         boolean invalidChoice = false;
 
-        Game.problemsEncountered++;    // Counter for end of game summary
+        Game.problemsEncountered++;    
         
         do {
             invalidChoice = false;
@@ -77,13 +78,14 @@ public class Bedroom extends Room {
     }
     
     /**
-     * This will create the trap scenrio for the user in the bedroom.
-     * The player will input their choice and to defeat the trap.
-     * param Scanner - user input
+     * Creates a trap scenario for the user in the Bedroom.
+     * The player selects an action to avoid a potential trap set by Gary.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override
     public void trap(Scanner sc){
-        Game.trapsEncountered++;    // Traps encountered counter for end of game summary
+        Game.trapsEncountered++;    
 
         System.out.println("\nRoom Description: This room is the bedroom. The bedroom is quiet and Gary has been known to spend most of his time hanging out in here. It contains a bed and a dresser.");
         System.out.println("Situation: Gary has placed a trap to deploy when you walk in, how do you want to enter the room?");
@@ -107,22 +109,21 @@ public class Bedroom extends Room {
            switch(userInput){
             case "1":
                 System.out.println("\nYou have been hit by a swinging ball attached to the top of the door.\n---\n");
-                Game.clock.deductTime(10);  // Time deduction
+                Game.clock.deductTime(10);  
                 Game.unsolvedTraps++;
                 break;
             case "2":
                 System.out.println("\nYou have successfully avoided the marbles in front of the door by swinging into the room.\n---\n");
-                // no punishment
-                Game.trapsSolved++;     // Traps solved counter for end of game summary
+                Game.trapsSolved++;     
                 break;
             case "3":
                 System.out.println("\nYou have been hit by a swinging ball attached to the top of the door.\n---\n");
-                Game.clock.deductTime(10);  // Time deduction
+                Game.clock.deductTime(10);  
                 Game.unsolvedTraps++;
                 break;
             case "4":
                 System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                Game.clock.deductTime(30);  // Time deduction
+                Game.clock.deductTime(30);  
                 Game.unsolvedTraps++;
                 Game.forfeits++;
             break;
@@ -143,11 +144,12 @@ public class Bedroom extends Room {
     /**
      * This will create the problem scenrio for the user in the bedroom.
      * The player will input their choice and to figure out the puzzle.
-     * param Scanner - user input
+     *
+     * @param sc Scanner object for user input.
      */
     @Override
     public void puzzle(Scanner sc){
-        Game.puzzlesEncountered++;  // Puzzles encountered counter for end of game summary
+        Game.puzzlesEncountered++;  
         
         System.out.println("\nRoom Description: This room is the bedroom. The bedroom is quiet and Gary has been known to spend most of his time hanging out in here. It contains a bed and a dresser.");
         System.out.println("Situation: Find the hidden mess, what a distress, the mess would be where you find a dress?");
@@ -172,23 +174,21 @@ public class Bedroom extends Room {
            switch(userInput){
             case "1":
                 System.out.println("\nYou did not find the mess.\n---\n");
-                Game.clock.deductTime(5);   // Time deduction
+                Game.clock.deductTime(5);   
                 break;
             case "2":
                 System.out.println("\nYou did not find the mess.\n---\n");
-                // no punishment --> Not sure why there would be no punishment here??? He didn't find the mess
-                Game.clock.deductTime(5);   // Time deduction
+                Game.clock.deductTime(5);   
                 break;
             case "3":
                 System.out.println("\nCorrect, the dresser is where the mess is. You have saved time.\n---\n");
-                Game.clock.addTime(5);  // Adding time for solving correctly... although I feel it doesn't entirely make sense to add time for this...
-                                                     // ... what if we had some sort of different system for when they do things correctly like this? I don't know
-                Game.puzzlesSolved++;   // Puzzles solved counter for end of game summary
+                Game.clock.addTime(5);                     
+                Game.puzzlesSolved++;   
                 break;
             case "4":
                 System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                Game.clock.deductTime(30);  // Time deduction
-                Game.forfeits++;    // Forfeit counter for end of game summary
+                Game.clock.deductTime(30);  
+                Game.forfeits++;    
             break;
             default:
                 System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
@@ -200,16 +200,21 @@ public class Bedroom extends Room {
     }
 
     /**
-     * This method creates a sense of "fun" for the user and intensity.
+     * Provides a taunt scenario for the user in the Bedroom.
      * The method prints a string of Gary trashtalking the user.
-     * !Undecided on what it will say!
+     *
+     * @param sc Scanner object for user input.
      */
     @Override
     public void taunt(Scanner sc){
         System.out.println("\nA note was left on the bed saying, 'HAHAHAHAHA - Gary ;)'\n---\n");
     }
 
-    // Went ahead and finished this. Game allows user to actually catch Gary now
+     /**
+     * Catches Gary in the Bedroom and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void catchGary(Scanner sc){
         System.out.println("\nGary is hiding in the bedroom! You caught him!\n---\n");
