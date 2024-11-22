@@ -17,7 +17,7 @@ public class Kitchen extends Room {
      *  Constructor to build the room and pass the room name to the parent class.
      */
     public Kitchen() {
-        super("Kitchen"); // Pass "Kitchen" to the Room constructor
+        super("Kitchen"); 
     }
 
     /**
@@ -46,7 +46,7 @@ public class Kitchen extends Room {
             System.out.println("2. Call for help.");
             System.out.println("3. Try to sneak out quietly.");
 
-            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  // Forfeit option
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  
 
             System.out.print("\nChoose how to escape: ");
             userInput = sc.nextLine().trim();
@@ -110,7 +110,7 @@ public class Kitchen extends Room {
            System.out.println("2 -> Plug in the fridge first.");
            System.out.println("3 -> Try to quickly plug in the fridge, then unclog the sink.");
            
-           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   
 
            System.out.print("\nPlease enter your option: ");
            userInput = sc.nextLine().trim();
@@ -168,7 +168,7 @@ public class Kitchen extends Room {
            System.out.println("2 -> Pantry Sink, Fridge");
            System.out.println("3 -> Fridge, Pantry, Sink");
            
-           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   // Forfeit option
+           System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");   
 
            System.out.print("\nPlease enter your option: ");
            userInput = sc.nextLine().trim();
