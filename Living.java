@@ -1,15 +1,29 @@
+/**
+ * Class: Living Room 
+ * 
+ * @author: Group F CSE 201
+ * 
+ * This is a child class of Room. This class represents the living room in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
+ */
 import java.util.Scanner;
 
 public class Living extends Room {
+
+    /**
+     * Constructor to build the room and pass the room name to the parent class.
+     */
     public Living() {
         super("Living");
     }
-
-    /*
-     * @param Scanner sc 
-     * This function describes a trap laid out by Gary in the living room. The scanner is used to
-     * scan for user input and correlate it with a set of options below. Depending on the choice,
-     * the player will either pick correctly or incorrectly, in which time is also deducted.
+    
+    /**
+     * Creates the trap scenario for the user in the Living room.
+     * The player selects an action to avoid a potential trap set by Gary.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override 
     public void trap(Scanner sc) {
@@ -38,23 +52,23 @@ public class Living extends Room {
             switch (user_input) {
                 case "1":
                     System.out.println("\nYou make it over the pile of mousetraps that are in front of the door.\n---\n");
-                    Game.trapsSolved++;     // ENdof game summary counter
+                    Game.trapsSolved++;    
                     break;
                 case "2":
                     System.out.println("\nYou crawl in, and your tail gets caught in one of the mousetraps.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     Game.unsolvedTraps++;
                     break;
                 case "3":
                     System.out.println("\nYou waltz in and proceed to step into several mousetraps.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     Game.unsolvedTraps++;
                     break;
                 case "4":
                     System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);  // Time deduction
+                    Game.clock.deductTime(30); 
                     Game.unsolvedTraps++;
-                    Game.forfeits++;    // End of game summary counter
+                    Game.forfeits++;    
                     break;
                 default:
                     System.out.println("\nInvalid choice! You remain trapped. Please enter 1, 2, 3, or 4");
@@ -70,15 +84,15 @@ public class Living extends Room {
         } while (invalidChoice);
     }
 
-    /*
-     * @param Scanner sc 
-     * This function describes a puzzle that Gary created. The scanner is used to
-     * scan for user input and correlate it with a set of options below. Depending on the choice,
-     * the player will either pick correctly or incorrectly, in which time is also deducted.
+    /**
+     * Creates a puzzle scenario for the user in the Living room.
+     * The player will input their choice and to figure out the puzzle.
+     *
+     * @param sc Scanner object for user input.
      */
     @Override
     public void puzzle(Scanner sc) {
-        Game.puzzlesEncountered++;  // End of game summary counter
+        Game.puzzlesEncountered++;  
         
         System.out.println("\nRoom description: The living room, where all of your owner's friends come n' go.");
         System.out.println("Gary doesn't come here too much, he doesn't want to get caught. It has a coffee table, TV, and 3 houseplants in it.");
@@ -103,20 +117,20 @@ public class Living extends Room {
             switch (user_input) {
                 case "1":
                     System.out.println("\nYou dig into one of the houseplants and find nothing. There's dirt lying everywhere.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);  
                     break;
                 case "2":
                     System.out.println("\nYou find the remote wedged into the couch and take it out!\n---\n");
-                    Game.puzzlesSolved++;   // End of game summary counter
+                    Game.puzzlesSolved++;  
                     break;
                 case "3":
                     System.out.println("\nYou check behind the TV and accidentally knock it over.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     break;
                 case "4":
                     System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);  // Time deduction
-                    Game.forfeits++;    // End of game summary counter
+                    Game.clock.deductTime(30);  
+                    Game.forfeits++;   
                     break;
                 default:
                     System.out.println("\nInvalid choice! You remain trapped. Please enter 1, 2, 3, or 4");
@@ -126,11 +140,11 @@ public class Living extends Room {
         } while (invalidChoice);
     }
 
-    /*
-     * @param Scanner sc 
-     * This function describes a problem in the room that Gary has caused. The scanner is used to
-     * scan for user input and correlate it with a set of options below. Depending on the choice,
-     * the player will either pick correctly or incorrectly, in which time is also deducted.
+    /**
+     * Creates a problem scenario for the user in the Kitchen.
+     * The player must decide how to handle falling coffee cups to prevent further issues.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override
     public void problem(Scanner sc) {
@@ -141,7 +155,7 @@ public class Living extends Room {
         String user_input;
         boolean invalidChoice = false;
 
-        Game.problemsEncountered++; // End of game summary counter
+        Game.problemsEncountered++; 
 
         do {
             invalidChoice = false;
@@ -159,20 +173,19 @@ public class Living extends Room {
             switch (user_input) {
                 case "1":
                     System.out.println("\nYou fly right below the cups, but the heat of the cups burns you. Coffee flies everywhere!\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     break;
                 case "2":
                     System.out.println("\nYou shove the coffee cups right as they're about to fall, but you shove it off the other side of the table.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     break;
                 case "3":
                     System.out.println("\nYou yank all of the coffee cups and chug them. They taste good, too!\n---\n");
-                    // No punishment
                     break;
                 case "4":
                     System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);  // Time deduction
-                    Game.forfeits++;    // End of game summary counter
+                    Game.clock.deductTime(30);  
+                    Game.forfeits++;    
                     break;
                 default:
                     System.out.println("\nInvalid choice! You remain trapped. Please enter 1, 2, 3, or 4");
@@ -182,16 +195,21 @@ public class Living extends Room {
         } while (invalidChoice);
     }
 
-    /*
-     * This function prints out a taunt to indicate that Gary is in another room.
+    /**
+     * Provides a taunt scenario for the user in the Living room.
+     * The method prints a string of Gary trashtalking the user.
+     *
+     * @param sc Scanner object for user input.
      */
     @Override
     public void taunt(Scanner sc) {
         System.out.println("\nGary taunts you from another room!\n---\n");
     }
-
-    /*
-     * This function is meant to run when Gary is about to be caught
+    
+     /**
+     * Catches Gary in the Living Room and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override
     public void catchGary(Scanner sc) {
