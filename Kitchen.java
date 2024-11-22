@@ -1,11 +1,12 @@
 /**
  * Class: Kitchen 
  * 
- * Author: Group F CSE 201
+ * @author: Group F CSE 201
  * 
- * This is child class of Room. This class is to implement one of the rooms 
- * in our game for the user to interact with. The room will provide scenarios and effects based
- * on user input.
+ * This is a child class of Room. This class represents the kitchen in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
  */
 
 import java.util.Scanner;
@@ -13,17 +14,17 @@ import java.util.Scanner;
 public class Kitchen extends Room {
 
     /**
-     * Constructor to build the room.
+     *  Constructor to build the room and pass the room name to the parent class.
      */
     public Kitchen() {
         super("Kitchen"); // Pass "Kitchen" to the Room constructor
     }
 
-    //methods
     /**
-     * This will create the trap scenrio for the user in the kitchen.
-     * The player will input their choice and to defeat the trap.
-     * param Scanner - user input
+     * Creates the trap scenario for the user in the Kitchen.
+     * The player selects an action to avoid a potential trap set by Gary.
+     * 
+     * @param sc Scanner object for user input.
      */
     @Override
     public void trap(Scanner sc) {
@@ -53,24 +54,22 @@ public class Kitchen extends Room {
             switch (userInput) {
             case "1":
                 System.out.println("\nYou hit the trap with the frying pan! It breaks open!\n---\n");
-                Game.clock.deductTime(5);     // Time deduction
+                Game.clock.deductTime(5);   
                 Game.unsolvedTraps++;
                 break;
             case "2":
                 System.out.println("\nYou call for help, but no one hears you.\n---\n");
-                Game.clock.deductTime(5);     // Time deduction
+                Game.clock.deductTime(5);   
                 Game.unsolvedTraps++;
                 break;
             case "3":
                 System.out.println("\nYou sneak out quietly and escape the trap!\n---\n");
-                // No punishment here
-
-                Game.trapsSolved++;     // Traps solved counter for end of game summary
+                Game.trapsSolved++;     
                 break;
             case "4":
                 System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                Game.clock.deductTime(30);  // Time deduction
-                Game.forfeits++;    // Forfeit counter for end of game summary
+                Game.clock.deductTime(30);  
+                Game.forfeits++;   
                 Game.unsolvedTraps++;
                 break;
             default:
@@ -88,9 +87,10 @@ public class Kitchen extends Room {
     }
 
     /**
-     * This will create the problem scenrio for the user in the kitchen.
-     * The player will input their choice and to solve the problem.
-     * param Scanner - user input
+     * Creates a problem scenario for the user in the Kitchen.
+     * The player selects an option to address the issue of a clogged sink and an unplugged fridge.
+     * 
+     * @param sc Scanner object for user input.
      */
     public void problem(Scanner sc){
         System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
@@ -100,7 +100,7 @@ public class Kitchen extends Room {
         String userInput; 
         boolean invalidChoice = false;
 
-        Game.problemsEncountered++;     // Problems encountered counter for end of game summary
+        Game.problemsEncountered++;     
         
         do {
             invalidChoice = false;
@@ -118,21 +118,21 @@ public class Kitchen extends Room {
            switch(userInput){
                 case "1":
                     System.out.println("\nYou have successfully unclogged the sink, but the food in the fridge has started to warm up.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);  
                     break;
                 case "2":
                     System.out.println("\nYou plugged in the fridge, saving the food, but the clogged sink has caused water to overflow.\n---\n");
-                    Game.clock.deductTime(5);   // Time deduction
+                    Game.clock.deductTime(5);   
                     break;
                 case "3":
                     System.out.println("\nYou quickly plugged in the fridge and then unclogged the sink.");
                     System.out.println("However, in your rush, you made a mess around the sink, costing you extra time to clean.\n---\n");
-                    Game.clock.deductTime(10);  // Time deduction
+                    Game.clock.deductTime(10);
                     break;
                 case "4":
                     System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);  // Time deduction
-                    Game.forfeits++;    // Forfeit counter for end of game summary
+                    Game.clock.deductTime(30);  
+                    Game.forfeits++;    
                     break;
                 default:
                     System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
@@ -142,14 +142,14 @@ public class Kitchen extends Room {
         
         } while(invalidChoice);
     }
-
     /**
      * This will create the problem scenrio for the user in the kitchen.
      * The player will input their choice and to figure out the puzzle.
-     * param Scanner - user input
+     *
+     * @param sc Scanner object for user input.
      */
     public void puzzle(Scanner sc){
-        Game.puzzlesEncountered++;  // End of game summary counter
+        Game.puzzlesEncountered++;  
         
         System.out.println("\nRoom Description: This room is the kitchen. The kitchen has a fridge, table and chairs, a pantry and sink.");
         System.out.println("Situation: The puzzle will give you extra time! Determine the order to find the clue based on the riddle.");
@@ -175,22 +175,20 @@ public class Kitchen extends Room {
            switch(userInput){
             case "1":
                 System.out.println("\nIncorrect order, puzzle not solved.\n---\n");
-                Game.clock.deductTime(5);   // Time deduction
+                Game.clock.deductTime(5);   
                 break;
             case "2":
                 System.out.println("\nPuzzle not solved! No bonus!\n---\n");
-                Game.clock.deductTime(5);   // Time deduction
+                Game.clock.deductTime(5);   
                 break;
             case "3":
                 System.out.println("\nCorrect order! Puzzle Solved!\n---\n");
-                // no punishment
-
-                Game.puzzlesSolved++;   // end of game summary counter
+                Game.puzzlesSolved++;  
                 break;
             case "4":
                 System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                Game.clock.deductTime(30);  // Time deduction
-                Game.forfeits++;    // end of game summary counter
+                Game.clock.deductTime(30); 
+                Game.forfeits++;   
             break;
             default:
                 System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
@@ -201,17 +199,21 @@ public class Kitchen extends Room {
     }
 
     /**
-     * This method creates a sense of "fun" for the user and intensity.
+     * Provides a taunt scenario for the user in the Kitchen.
      * The method prints a string of Gary trashtalking the user.
-     * !Undecided on what it will say!
+     *
+     * @param sc Scanner object for user input.
      */
     @Override
     public void taunt(Scanner sc) {
-        // Just a placeholder for taunt
         System.out.println("\nGary taunts you from another room!\n---\n");
     }
 
-    // Completed. Gary is able to be caught now
+     /**
+     * Catches Gary in the Kitchen and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void catchGary(Scanner sc){
         System.out.println("\nGary is in the kitchen! Dom caught him just in time!\n---\n");
