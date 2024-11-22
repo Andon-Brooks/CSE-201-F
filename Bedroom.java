@@ -142,7 +142,7 @@ public class Bedroom extends Room {
     }
 
     /**
-     * This will create the problem scenrio for the user in the bedroom.
+     * Creates a puzzle scenario for the user in the Bedroom.
      * The player will input their choice and to figure out the puzzle.
      *
      * @param sc Scanner object for user input.
