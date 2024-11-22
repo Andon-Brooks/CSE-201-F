@@ -1,10 +1,17 @@
+/*
+* This class is to represent a clock and trak the time in the game
+*/
 public class Clock {
-
+    // Variable to store minutes
     private int minutes;
+    // Variable to store hours
     private int hours;
-
+    // Variable to indicate if the game is paused
     private boolean paused;
 
+    /*
+    * Constructor method for the clock class
+    */
     public Clock() {
         // I gave 4 hours of time to find Gary. The owner is gone from 12:00 pm to 4:00 pm
         this.hours = 4;     // I feel it's easier to just set a time limit and in the start game description just explain the hours the owner is gone???
