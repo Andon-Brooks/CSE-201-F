@@ -1,7 +1,7 @@
 /**
  * Class: Bathroom
  * 
- * Author: Group F CSE 201
+ * @author: Group F CSE 201
  * 
  * This is a child class of Room. This class represents the bathroom in our game,
  * where players encounter unique scenarios and interact based on their choices.
@@ -18,8 +18,6 @@ public class Bathroom extends Room {
     public Bathroom() {
         super("Bathroom");
     }
-    
-    // Methods:
 
     /**
      * Creates a problem scenario for the user in the Bathroom.
