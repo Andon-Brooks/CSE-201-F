@@ -17,11 +17,12 @@ public class Game {
     
     // Holds the current room that the user is in
     private static Room currentRoom;
-
+    
+    // The clock object for the game
     public static Clock clock = new Clock();
-    public static boolean hasCaughtGary = false;
     
     // End of game summary counters
+    public static boolean hasCaughtGary = false;
     public static int forfeits = 0;
     public static int trapsEncountered = 0;
     public static int trapsSolved = 0;
@@ -40,7 +41,6 @@ public class Game {
      * @param sc System.in Scanner passed to tutorial for user I/O
      */
     public static void startGame(Scanner sc) {
-
         tutorial();
         roomList.clear();
 
@@ -133,12 +133,10 @@ public class Game {
         System.out.println("Avalible rooms to move to: ");
         printRooms(roomList);
         System.out.println();
-
-
     }
 
     /**
-     * Gives the option to Continue, restart, quit, or get help
+     * Gives the option to Continue, restart, quit, or get help (help not implemented)
      * 
      * @param sc System.in Scanner for user I/O
      */
@@ -236,6 +234,8 @@ public class Game {
 
     /**
      * Helper method that prints a String containing all room names
+     * 
+     * @param list an ArrayList of rooms in which the rooms need to be printed
      */
     private static void printRooms(ArrayList<Room> list) {
         String result = "   ";
@@ -293,17 +293,16 @@ public class Game {
                     return;
                 }
             }
-
             if (!validChoice) {
                 System.out.println("\nInvalid choice, try again!");
                 System.out.println("--------------------------\n");
             }
-
         } while(!choice.equals("Back"));
     }
 
-
-
+    /*
+    * A simple method to check all visited and unvisted rooms
+    */
     public static void checkMap() {
 
         clock.pause();
@@ -320,6 +319,9 @@ public class Game {
         clock.resume();
     }
 
+    /**
+    * A Simple method to give a summary about time
+    */
     public static void displayTimeSummary() {
         System.out.println("\n\n---------- Dom's Time Summary ----------\n");
 
@@ -337,6 +339,9 @@ public class Game {
         System.out.println("-------------------------------------\n");
     }
 
+    /*
+    * This method pritchs a message if Gary has been catch
+    */
     public static void catchGary() {
         System.out.println("-----------------------------------------------------------------------------------------\n");
         System.out.println("\nCONGRATULATIONS! DOM HAS CAUGHT GARY!!!");
@@ -345,6 +350,9 @@ public class Game {
         displayEndGameSummary();
     }
 
+    /*
+    * Method to display summary of information when the game ends
+    */
     public static void displayEndGameSummary() {
         System.out.println("\n---------- End of Game Summary ----------\n");
 
@@ -362,8 +370,10 @@ public class Game {
         gameOver = true;
     }
 
-
-
+    /*
+    * Method that prints game statics
+    * Called in the enf of game Summary 
+    */
     public static void displayStats() {
         System.out.println("\n------------- Game Statistics -------------\n");
         System.out.println("Problems Encountered: " + problemsEncountered);
@@ -373,20 +383,14 @@ public class Game {
         System.out.println("------------------------------------------\n");
     }
 
+    /*
+    * Method to display you have lost from too many traps
+    */
     public static void gameOverTraps() {
         System.out.println("\n--- GAME OVER! ---\n");
         System.out.println("Dom has been caught in too many traps and can't continue!\n");
         gameOver = true;
         displayEndGameSummary();
-    }
-
-
-
-    /**
-     * Prints a notification containing...
-     */
-    public void notification() {
-        System.out.println("This is a notification full of information");   // Not sure what this method is for
     }
 
     /**
