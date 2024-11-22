@@ -1,7 +1,7 @@
 /**
  * Class: DiningRoom
  * 
- * Author: Group F CSE 201
+ * @author: Group F CSE 201
  * 
  * This is a child class of Room. This class represents the dining room in our game,
  * where players encounter unique scenarios and interact based on their choices.
@@ -19,8 +19,6 @@ public class DiningRoom extends Room {
         super("DiningRoom");
     }
     
-    // Methods:
-
     /**
      * Creates the trap scenario for the user in the Dining Room.
      * The player inputs a choice to avoid the falling chandelier trap.
