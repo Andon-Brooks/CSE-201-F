@@ -10,20 +10,18 @@
 import java.util.Scanner;
 
 public class Bedroom extends Room {
-
     /**
-     * Constructor to build the room.
+     * Constructor to build the Bedroom.
      */
     public Bedroom(){
         super("Bedroom");
     }
 
-    //methods
-    /**
-     * This will create the problem scenrio for the user in the bedroom.
-     * The player will input their choice and to solve the problem.
-     * param Scanner - user input
-     */
+    /*
+    * Method that presents a problem to the user relevant to the Bedroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void problem(Scanner sc){
         System.out.println("\nRoom Description: This room is the bedroom. The bedroom is quiet and Gary has been known to spend most of his time hanging out in here. It contains a bed, tv and a dresser.");
@@ -76,11 +74,11 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
     
-    /**
-     * This will create the trap scenrio for the user in the bedroom.
-     * The player will input their choice and to defeat the trap.
-     * param Scanner - user input
-     */
+   /*
+    * Method that presents a trap to the user relevant to the Bedroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void trap(Scanner sc){
         Game.trapsEncountered++;    // Traps encountered counter for end of game summary
@@ -140,11 +138,11 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
 
-    /**
-     * This will create the problem scenrio for the user in the bedroom.
-     * The player will input their choice and to figure out the puzzle.
-     * param Scanner - user input
-     */
+    /*
+    * Method that presents a puzzle to the user relevant to the Bedroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void puzzle(Scanner sc){
         Game.puzzlesEncountered++;  // Puzzles encountered counter for end of game summary
@@ -199,17 +197,21 @@ public class Bedroom extends Room {
         } while(invalidChoice);
     }
 
-    /**
-     * This method creates a sense of "fun" for the user and intensity.
-     * The method prints a string of Gary trashtalking the user.
-     * !Undecided on what it will say!
-     */
+    /*
+    * Method that presents a taunt to the user relevant to the Bedroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void taunt(Scanner sc){
         System.out.println("\nA note was left on the bed saying, 'HAHAHAHAHA - Gary ;)'\n---\n");
     }
 
-    // Went ahead and finished this. Game allows user to actually catch Gary now
+    /*
+    * Method that presents a catch gary situation to the user relevant to the Bedroom
+    * 
+    * @param sc Scanner object user fot I/O
+    */
     @Override
     public void catchGary(Scanner sc){
         System.out.println("\nGary is hiding in the bedroom! You caught him!\n---\n");
