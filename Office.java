@@ -1,11 +1,12 @@
 /**
  * Class: Office
  * 
- * Author: Group F CSE 201
+ * @author: Group F CSE 201
  * 
- * This is a child class of Room. This class represents the office in our game, 
- * where players encounter unique challenges, including traps, puzzles, and problems. 
- * Each scenario requires players to make choices that impact the game state differently.
+ * This is a child class of Room. This class represents the Office in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
  */
 import java.util.Scanner;
 
@@ -18,8 +19,6 @@ public class Office extends Room {
         super("Office");
     }
     
-    // Methods:
-
     /**
      * Creates the trap scenario for the user in the Office.
      * The player inputs a choice to escape a falling stack of books.
