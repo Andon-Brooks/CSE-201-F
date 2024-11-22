@@ -1,11 +1,30 @@
+/**
+ * Class: Office
+ * 
+ * @author: Group F CSE 201
+ * 
+ * This is a child class of Room. This class represents the Office in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
+ */
 import java.util.Scanner;
 
 public class Office extends Room {
-
+    
+    /**
+    * Constructor to build the room and pass the room name to the parent class.
+    */
     public Office() {
         super("Office");
     }
-
+    
+    /**
+     * Creates the trap scenario for the user in the Office.
+     * The player inputs a choice to escape a falling stack of books.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -62,6 +81,12 @@ public class Office extends Room {
         } while (invalidChoice);
     }
 
+    /**
+     * Creates a puzzle scenario for the user in the Office.
+     * The player must solve a riddle to unlock a drawer and obtain clues.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void puzzle(Scanner sc) {
         Game.puzzlesEncountered++;
@@ -110,6 +135,12 @@ public class Office extends Room {
         } while (invalidChoice);
     }
 
+    /**
+     * Creates a problem scenario for the user in the Office.
+     * The player decides how to handle loud music playing on a computer.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void problem(Scanner sc) {
         Game.problemsEncountered++;
@@ -156,12 +187,23 @@ public class Office extends Room {
             }
         } while (invalidChoice);
     }
-
+    
+    /**
+     * Provides a taunt scenario for the user in the Office.
+     * Gary leaves a clue mocking the player.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void taunt(Scanner sc) {
         System.out.println("\nYou see a note from Gary: 'Catch me if you can, slowpoke!'\n---\n"); 
     }
 
+    /**
+     * Catches Gary in the Office and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void catchGary(Scanner sc) {
         System.out.println("\nYou found Gary hiding in the office! You've caught him!\n---\n");

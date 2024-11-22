@@ -1,21 +1,33 @@
+/**
+ * Class: Bathroom
+ * 
+ * @author: Group F CSE 201
+ * 
+ * This is a child class of Room. This class represents the bathroom in our game,
+ * where players encounter unique scenarios and interact based on their choices.
+ * The room offers various challenges such as traps, puzzles, and problems,
+ * each affecting the game state differently.
+ */
 import java.util.Scanner;
 
 /*
 * Child class of room that represents a bathroom
 */
 public class Bathroom extends Room {
-    /*
-    * Constructor of Bathroom, calls to Room with the name Bathroom
-    */
+    
+    /**
+     * Constructor to build the room and pass the room name to the parent class.
+     */
     public Bathroom() {
         super("Bathroom");
     }
 
-    /*
-    * Method that presents a problem to the user relevant to the bathroom
-    * 
-    * @param sc Scanner object user fot I/O
-    */
+    /**
+     * Creates a problem scenario for the user in the Bathroom.
+     * The player chooses an option to handle a running shower and a wet floor.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void problem(Scanner sc) {
         System.out.println("\nRoom Description: This is the bathroom. It's steamy, and water is splashing everywhere.");
@@ -67,12 +79,13 @@ public class Bathroom extends Room {
             }
         } while (invalidChoice);
     }
-
-    /*
-    * Method that presents a trap to the user relevant to the bathroom
-    * 
-    * @param sc Scanner object user fot I/O
-    */
+    
+    /**
+     * Creates the trap scenario for the user in the Bathroom.
+     * The player inputs a choice to avoid slipping on a floor covered with marbles.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void trap(Scanner sc) {
         Game.trapsEncountered++;
@@ -135,12 +148,13 @@ public class Bathroom extends Room {
 
         } while (invalidChoice);
     }
-
-    /*
-    * Method that presents a puzzle to the user relevant to the bathroom
-    * 
-    * @param sc Scanner object user fot I/O
-    */
+    
+    /**
+     * Creates a puzzle scenario for the user in the Bathroom.
+     * The player inputs a choice to solve the riddle written on the bathroom mirror.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void puzzle(Scanner sc) {
         Game.puzzlesEncountered++;
@@ -195,22 +209,23 @@ public class Bathroom extends Room {
             }
         } while (invalidChoice);
     }
-
-    /*
-    * Method that presents a taunt to the user relevant to the bathroom
-    * 
-    * @param sc Scanner object user fot I/O
-    */
+    
+    /**
+     * Provides a taunt scenario for the user in the Bathroom.
+     * Gary mocks the player with a message written on the mirror.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void taunt(Scanner sc) {
         System.out.println("\nGary left a message on the mirror: 'You'll never catch me in time!'\n---\n");
     }
-
-    /*
-    * Method that presents a catch gary situation to the user relevant to the bathroom
-    * 
-    * @param sc Scanner object user fot I/O
-    */
+    
+    /**
+     * Catches Gary in the Bathroom and triggers the end game summary.
+     * 
+     * @param sc Scanner object for user input.
+     */
     @Override
     public void catchGary(Scanner sc) {
         System.out.println("\nGary was hiding behind the shower curtain! You caught him!\n---\n");
