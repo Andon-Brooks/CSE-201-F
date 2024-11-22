@@ -44,7 +44,7 @@ public class Living extends Room {
             System.out.println("2 <- Crawl into the room");
             System.out.println("3 <- Walk in assuming the trap is elsewhere");
 
-            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  // Forfeit option
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  
 
             System.out.print("\nPlease enter your option: ");
             user_input = sc.nextLine().trim();
@@ -109,7 +109,7 @@ public class Living extends Room {
             System.out.println("2 <- Check under the couch");
             System.out.println("3 <- Check behind the TV");
 
-            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  // Forfeit option
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  
 
             System.out.print("\nPlease enter your option: ");
             user_input = sc.nextLine().trim();
@@ -165,7 +165,7 @@ public class Living extends Room {
             System.out.println("2 <- Shove the cups back onto the table");
             System.out.println("3 <- Drink all of the coffee as it falls out");
 
-            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  // Forfeit option
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");  
 
             System.out.print("\nPlease enter your option: ");
             user_input = sc.nextLine().trim();
