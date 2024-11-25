@@ -1,13 +1,21 @@
+/**
+ * Class: Room
+ * 
+ * Author: Group F CSE 201
+ * 
+ * Abstract room class from which all different room classes extend
+ */
+
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
+
 /**
  * Abstract room class from which all different room classes extend
  */
 public abstract class Room {
     // The name of the room
     private final String roomName;
-
-    private boolean visited = false;    // Visited room    
 
     // Marked as true when Gary enters a room
     private boolean wasGary;
@@ -19,9 +27,32 @@ public abstract class Room {
      */
     Room(String roomName) {
         this.roomName = roomName;
-        this.wasGary = false; // Initially, Gary has not been in this room
+        this.wasGary = false;
     }
     
+    /**
+     * Overwritten equals class to compare different rooms
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } 
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Room r = (Room) other;
+        return Objects.equals(this.roomName, r.roomName);
+    }
+    
+    /**
+     * Overwritten hashCode method so that we can have a hashMap of rooms
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(roomName);
+    }
+
     /**
      * Getter method for room name
      * 
@@ -31,16 +62,6 @@ public abstract class Room {
         return roomName;
     }
 
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
-
-    
     /**
      * Getter method for wasGary
      * 
@@ -51,7 +72,7 @@ public abstract class Room {
     }
 
     /**
-     * Setter class for wasGary
+     * Setter method for wasGary
      * 
      * @param wasGary true if Gary has been in the room, false otherwise
      */
@@ -60,28 +81,14 @@ public abstract class Room {
     }
 
     /**
-     * Overridden equals method to compare Room classes
-     * 
-     * @param other the room to be compared to
-     * 
-     * @return True if the have the same name, false otherwise
-     */
-    public boolean equals(Room other) {
-        if (this.roomName == other.roomName) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Randomly picks a situation from the possible room situations, or catchGary
-     * if Gary is currently in the room 
+     * Randomly picks a situation from the possible room situations, or
+     * catchGary if Gary is currently in the room, or states that Gary
+     * hasn't been in the room.
      * 
      * @param sc System.in Scanner for user I/O
      */
     public void situation(Scanner sc) {
-        if (this.equals(Game.gary.getCurrentRoom())){
+        if (this.equals(Game.gary.getCurrentRoom())) {
             this.catchGary(sc);
         } else if (this.wasGary != true) {
             System.out.println("\nGary hasn't been in here so nothing is wrong!\n-----\n");
@@ -90,20 +97,20 @@ public abstract class Room {
             Random rand = new Random();
             int randomNumber = rand.nextInt(4) + 1;
             switch (randomNumber) {
-                case 1:
-                    this.trap(sc);
-                    break;
-                case 2:
-                    this.puzzle(sc);
-                    break;
-                case 3:
-                    this.problem(sc);
-                    break;
-                case 4:
-                    this.taunt(sc);
-                    break;
-                default:
-                    System.out.println("\nThe situation choice method is messed up\n");
+            case 1:
+                this.trap(sc);
+                break;
+            case 2:
+                this.puzzle(sc);
+                break;
+            case 3:
+                this.problem(sc);
+                break;
+            case 4:
+                this.taunt(sc);
+                break;
+            default:
+                System.err.println("\nThe situation choice method is messed up\n");
             }
         }
     }
@@ -114,30 +121,31 @@ public abstract class Room {
      * @param sc System.in Scanner for user I/O
      */
     public abstract void trap(Scanner sc);
-    
+
     /**
-     * GIves options to solve a puzzle set by Gary
+     * Gives options to solve a puzzle set by Gary
      * 
      * @param sc System.in Scanner for user I/O
      */
     public abstract void puzzle(Scanner sc);
-    
+
     /**
      * Gives options to handle a trap set by Gary
      * 
      * @param sc System.in Scanner for user I/O
      */
     public abstract void problem(Scanner sc);
-    
+
     /**
      * Prints a taunt message from Gary
      * 
      * @param sc System.in Scanner for user I/O
      */
     public abstract void taunt(Scanner sc);
-    
+
     /**
-     * If Gary is currently in the room, gives options to catch Gary and win the game
+     * If Gary is currently in the room, gives options to catch Gary and win the
+     * game
      * 
      * @param sc System.in Scanner for user I/O
      */
