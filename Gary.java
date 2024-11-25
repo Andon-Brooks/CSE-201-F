@@ -1,3 +1,11 @@
+/**
+ * Class: Gary
+ * 
+ * Author: Group F CSE 201
+ * 
+ * This class is for Gary objects to be created
+ */
+
 import java.util.Random;
 
 /**
@@ -6,10 +14,9 @@ import java.util.Random;
 public class Gary {
     // The current room Gary is in
     private Room currentRoom;
-    
-    // Commenting this out just since it is not be used at the moment
-    // // The name of the Gary object (for cases where there are multiple)
-    // private String name;
+
+    // The name of the Gary object (for cases where there are multiple)
+    private String name;
 
     /**
      * Constructor for the Gary class
@@ -17,10 +24,10 @@ public class Gary {
      * @param name the name of the Gary object
      */
     Gary(String name) {
-        //this.name = name;     // This constructor and variable is not even being used currently. Commented it out for Problem correction from the Terminal
+        this.name = name;
         this.move();
     }
-    
+
     /**
      * Handles the movement of Gary to a random room in the house
      * 
@@ -31,7 +38,7 @@ public class Gary {
         int randomNumber = rand.nextInt(Game.roomList.size());
         this.currentRoom = Game.roomList.get(randomNumber);
         this.currentRoom.setWasGary(true);
-        return getCurrentRoom();
+        return currentRoom;
     }
 
     /**
@@ -44,11 +51,11 @@ public class Gary {
     }
     
     /**
-     * A setter method for Gary's current room
+     * Getter method for this Gary object's name
      * 
-     * @param currentRoom the room Gary is to be moved to
+     * @return Gary's current room
      */
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
+    public String getGaryName() {
+        return name;
     }
 }

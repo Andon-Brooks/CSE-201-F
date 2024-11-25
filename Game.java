@@ -1,55 +1,101 @@
+/**
+ * Class: Game
+ * 
+ * Author: Group F CSE 201
+ * 
+ * This class contains the main functions of the game that are called from this,
+ * and other classes
+ */
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 /**
- * This class contains the main functions of the game that are called
- * from this, and other classes
+ * This class contains the main functions of the game that are called from this,
+ * and other classes
  */
 public class Game {
     // An arrayList to store all of the rooms in the house
-    public static ArrayList<Room> roomList = new ArrayList<Room>();
+    protected static ArrayList<Room> roomList = new ArrayList<Room>();
 
     // The mouse for the game (can be turned into a list of mice in the future)
     public static Gary gary;
-    
+
     // Controls if the game has ended or not
     public static boolean gameOver = false;
-    
+
     // Holds the current room that the user is in
     private static Room currentRoom;
-    
+
     // The clock object for the game
-    public static Clock clock = new Clock();
-    
+    public static Clock clock = new Clock(4, 0);
+
     // End of game summary counters
     public static boolean hasCaughtGary = false;
-    public static int forfeits = 0;
     public static int trapsEncountered = 0;
     public static int trapsSolved = 0;
-    public static int problemsEncountered = 0;
     public static int puzzlesEncountered = 0;
     public static int puzzlesSolved = 0;
+    public static int problemsEncountered = 0;
+    public static int problemsSolved = 0;
+    public static int tauntsEncountered = 0;
+    public static int GaryEncounters = 0;
+    public static int GarysCaught = 0;
+    public static int forfeits = 0;
+    public static HashMap<String, Integer> visits = new HashMap<>();
 
     // Variables for if user doesn't solve enough traps, then they lose
-    public static int unsolvedTraps = 0;
-    public static final int MAX_UNSOLVED_TRAPS = 5;
+    public static final int MAX_UNSOLVED = 5;
+    
+    /**
+     * Getter method for currentRoom variable
+     * 
+     * @return the current room of the user
+     */
+    public static Room getCurrentRoom() {
+        return currentRoom;
+    }
 
     /**
-     * Creates Objects needed to start the Game
-     * Also prints the game start message/ description
+     * Setter method for the currentRoom variable
+     * 
+     * @param currentRoom the room the current room is to be set to
+     */
+    public static void setCurrentRoom(Room currentRoom) {
+        Game.currentRoom = currentRoom;
+    }
+    
+    /**
+     * Creates Objects needed to start the Game Also prints the game start
+     * message/ description
      * 
      * @param sc System.in Scanner passed to tutorial for user I/O
      */
     public static void startGame(Scanner sc) {
-        tutorial();
+        // test(sc); // Just used to test rooms in development
+        tutorial(sc);
         roomList.clear();
+        clock = new Clock(4, 0);
+        gameOver = false;
+        
+        trapsEncountered = 0;
+        trapsSolved = 0;
+        puzzlesEncountered = 0;
+        puzzlesSolved = 0;
+        problemsEncountered = 0;
+        problemsSolved = 0;
+        tauntsEncountered = 0;
+        GaryEncounters = 0;
+        GarysCaught = 0;
+        forfeits = 0;
+        visits.clear();
 
         Room firstRoom = new Living();
         roomList.add(firstRoom);
         roomList.add(new Kitchen());
         roomList.add(new Bedroom());
-
-        // New added rooms
         roomList.add(new Bathroom());
         roomList.add(new Office());
         roomList.add(new DiningRoom());
@@ -59,15 +105,26 @@ public class Game {
     }
 
     /**
+     * Extra method that can be used by dev's to test game rooms/ features
+     * 
+     * @param sc System.in Scanner for user I/O
+     */
+    @SuppressWarnings("unused")
+    private static void test(Scanner sc) {
+        Room r = new Bathroom();
+        r.catchGary(sc);
+    }
+
+    /**
      * A simple tutorial class to walk the user through 3 rooms
      * 
      * @param sc System.in Scanner for user I/O
      */
-    public static void tutorial (Scanner sc) {
+    public static void tutorial(Scanner sc) {
         // Start of game description
-        System.out.println("\n--------------------------------------------------");
-        System.out.println("----------- Welcome to 'Dom and Gary'! -----------");
-        System.out.println("--------------------------------------------------\n");
+        System.out.println("-------------------------------------------");
+        System.out.println("-------- Welcome to 'Dom and Gary' --------");
+        System.out.println("-------------------------------------------\n");
 
         System.out.println("Your owner has just left for work and will be gone from 12:00 pm to 4:00 pm.");
         System.out.println("This gives you exactly 4 hours to catch Gary, the mischievous mouse, before the owner returns.");
@@ -76,67 +133,62 @@ public class Game {
         System.out.println("In this game, you play as Dom, a housecat with one goal... to catch Gary, the mischievous mouse,");
         System.out.println("before your owner returns home! Explore the rooms, avoid Garys traps, solve puzzles & problems, and try to catch him in time!");
         System.out.println("\nEach move takes time, so choose your actions wisely. Good luck!");
-        
-        System.out.println("\nTutorial\n");
-        System.out.println("--------------------------------------------------\n");
 
+        System.out.println("\nTutorial");
+        System.out.println("-------------------------------------------\n");
+
+        // The rooms are specific to the function, if they are changed the if
+        // statements below also need to be changed
         ArrayList<Room> tList = new ArrayList<Room>();
         tList.add(new Living());
         tList.add(new Kitchen());
         tList.add(new Bedroom());
-        printRooms(tList);
 
         String choice;
         boolean validChoice = false;
 
-        // This could be designed better but it is fine for what it is 
+        // This could be designed better but it is fine for what it is
         do {
-            System.out.print("Where would you like to go? : ");
+            System.out.println("Enter 'Back' to go back\n");
+            System.out.println("Avalible rooms to move to: ");
+            printRooms(tList);
+            System.out.print("Where would you like to go?: ");
             choice = sc.nextLine().trim().toLowerCase();
-            System.out.println("-----------------------------\n");
+            System.out.println("-------------------------------------------");
 
-            for (int i = 0; i < tlist.size(); i++) {
+            for (int i = 0; i < tList.size(); i++) {
                 if (tList.get(i).getRoomName().toLowerCase().equals(choice)) {
                     validChoice = true;
                     if (choice.trim().toLowerCase().equals("living")) {
-                        tList.get(i).situation(sc);
+                        tList.get(i).trap(sc);
+                        tList.remove(i);
+                    }
+
+                    if (choice.trim().toLowerCase().equals("bedroom")) {
+                        tList.get(i).problem(sc);
                         tList.remove(i);
                     }
 
                     if (choice.trim().toLowerCase().equals("kitchen")) {
-                        tList.get(i).problem(sc);
-                        tlist.remove(i);
-                    }
-
-                    if (choice.trim().toLowerCase().equals("kitchen")) {
                         tList.get(i).taunt(sc);
-                        tlist.remove(i)
+                        tList.remove(i);
                     }
                 }
-            } 
+            }
 
             if (!validChoice) {
-                System.out.println("\nInvalid choice, try again!");
-                System.out.println("--------------------------\n");
+                System.out.println("Invalid choice, try again!");
+                System.out.println("-------------------------------------------\n");
             }
-        } while(!tList.isEmpty());
+        } while (!tList.isEmpty());
 
-        System.out.println("\nThe game begins now...\n");
-        System.out.println("--------------------------------------------------\n");
+        System.out.println("\nThe game begins now!");
+        System.out.println("-------------------------------------------\n");
     }
 
     /**
-     * Resets and restarts the Game.
-     */
-    public static void restartGame() {
-        System.out.println("\nRestarting game...\n");
-        System.out.println("Avalible rooms to move to: ");
-        printRooms(roomList);
-        System.out.println();
-    }
-
-    /**
-     * Gives the option to Continue, restart, quit, or get help (help not implemented)
+     * Gives the option to Continue, restart, quit, or get help (help not
+     * implemented)
      * 
      * @param sc System.in Scanner for user I/O
      */
@@ -144,94 +196,101 @@ public class Game {
         String choice;
         boolean unValid;
         do {
-            System.out.println("\nc -> Continue");
+            System.out.println("c -> Continue");
             System.out.println("r -> Restart");
-            // System.out.println("h -> Help Menu");
-
             System.out.println("m -> Check Map");
-            System.out.println("t -> Time Summary");    // I changed it from 'Health' Summary to 'Time' Summary. We don't really have a health application for Dom. At least not yet.
-
+            System.out.println("t -> Time Summary");
             System.out.println("q -> Quit");
-            System.out.print("\nWhat would you like to do? : ");
+            System.out.print("\nWhat would you like to do?: ");
 
             choice = sc.nextLine();
-            System.out.println("------------------------------");
-
             unValid = false;
 
             switch (choice) {
             case "c":
-                System.out.println("\nContuine the Game!");
-                System.out.println("------------------\n");
+                System.out.println("-------------------------------------------");
+                System.out.println("Contuine the Game!");
+                System.out.println("-------------------------------------------\n");
                 break;
             case "r":
-                restartGame();
+                System.out.println("\nRestarting game...\n");
+                startGame(sc);
                 break;
-            // case "h":
-            //     helpMenu(sc);
-            //     break;
             case "m":
-                checkMap();
+                printVisitMap();
                 break;
             case "t":
                 displayTimeSummary();
                 break;
             case "q":
-                System.out.println("\nYou have quit the game!");
-                System.out.println("-----------------------\n");
+                System.out.println("-------------------------------------------");
+                System.out.println("You have quit the game!");
+                System.out.println("-------------------------------------------\n");
                 gameOver = true;
-                displayStats();
                 break;
             default:
-                System.out.println("\nInvalid input, try again!");
-                System.out.println("-------------------------");
+                System.out.println("-------------------------------------------");
+                System.out.println("Invalid input, try again!");
+                System.out.println("-------------------------------------------");
                 unValid = true;
             }
         } while (unValid);
     }
 
-    // /**
-    //  * Help menu with different help options
-    //  * 
-    //  * @param sc System.in Scanner for user I/O
-    //  */
-    // public static void helpMenu(Scanner sc) {
-    //     String choice;
-    //     boolean unValid;
-    //     do {
-    //         System.out.println("\n\n--- Help Menu ---\n");
-    //         System.out.println("1 -> Help message 1");
-    //         System.out.println("2 -> Help message 2");
-    //         System.out.println("3 -> Help message 3");
-    //         System.out.println("b -> Go Back");
-    //         System.out.print("\nWhat would you like to do? : ");
+    /**
+     * Moves player to a chosen room and does that room's random situation. Gary's
+     * moves are also triggered in this method
+     * 
+     * @param sc System.in Scanner for user I/O
+     */
+    public static void move(Scanner sc) {
+        String choice;
 
-    //         choice = sc.nextLine();
-    //         System.out.println("------------------------------");
-    //         unValid = false;
+        do {
+            System.out.println("Enter 'Back' to go back\n");
+            System.out.println("Avalible rooms to move to: ");
+            printRooms(roomList);
+            System.out.print("Where would you like to go?: ");
+            choice = sc.nextLine().trim().toLowerCase();
+            System.out.println("-------------------------------------------\n");
 
-    //         switch (choice) {
-    //         case "1":
-    //             System.out.println("\nHelp message one still needs to be created\n");
-    //             break;
-    //         case "2":
-    //             System.out.println("\nHelp message two still needs to be created\n");
-    //             break;
-    //         case "3":
-    //             System.out.println("\nHelp message three still needs to be created\n");
-    //             break;
-    //         case "b":
-    //             System.out.println("\nGoing Back...");
-    //             System.out.println("-------------\n");
-    //             break;
-    //         default:
-    //             System.out.println("\nInvalid input, try again!");
-    //             System.out.println("-------------------------");
-    //             unValid = true;
-    //         }
-    //     } while (unValid);
-    // }
+            if (choice.trim().toLowerCase().equals("back")) {
+                return;
+            }
 
+            boolean validChoice = false;
+            for (Room r : roomList) {
+                if (r.getRoomName().toLowerCase().equals(choice)) {
+                    validChoice = true;
+                    clock.deductTime(5);
+                    gary.move();
+                    currentRoom = r;
+                    countVisits(currentRoom);
+                    currentRoom.situation(sc);
+                    checkTraps();
+                    return;
+                }
+            }
+            if (!validChoice) {
+                System.out.println("Invalid choice, try again!");
+                System.out.println("-------------------------------------------\n");
+            }
+        } while (!choice.equals("Back"));
+    }
+    
+    /**
+     * private helper method to check if too many traps have been failed
+     * 
+     * @return true if too many traps have been failed, false otherwise
+     */
+    private static boolean checkTraps() {
+        if ((trapsEncountered - trapsSolved) >= MAX_UNSOLVED) {
+            gameOver = true;
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Helper method that prints a String containing all room names
      * 
@@ -244,178 +303,80 @@ public class Game {
         }
         System.out.println(result);
     }
-
+    
     /**
-     * Moves player to a chosen room and does that rooms random situation
-     * Gary's moves are also triggered in this method
+     * Helper method used to count how many times each room has been visited
      * 
-     * @param sc System.in Scanner for user I/O
+     * @param r the room to count a visit for
      */
-    public static void move(Scanner sc) {
-        if (gameOver) return;  // Prevent further moves if the game is over
-
-        System.out.println("\n\nEnter 'Back' to go back\n");
-        System.out.println("Avalible rooms to move to: ");
-        printRooms(roomList);
-        System.out.println();
-
-        String choice;
-
-        do {
-            System.out.print("Where would you like to go? : ");
-            choice = sc.nextLine().trim().toLowerCase();
-            System.out.println("-----------------------------\n");
-
-            if (choice.trim().toLowerCase().equals("back")) {
-                // System.out.println("MADE IT TO BACK"); // USed for testing
-                return;
-            }
-
-            if (gameOver) return;  // Check if game ended due to time running out
-
-            boolean validChoice = false;
-            for (Room r : roomList) {
-                if (r.getRoomName().toLowerCase().equals(choice)) {
-                    validChoice = true;
-                    clock.deductTime(5);
-                    gary.move();
-                    currentRoom = r;
-                    // System.out.println("MADE IT TO SITUATION"); // Used for testing
-                    currentRoom.setVisited(true);
-
-                    if (currentRoom.equals(gary.getCurrentRoom())) {
-                        catchGary();
-                        return;
-                    }
-
-                    r.situation(sc);
-                    // System.out.println("MADE IT PAST SITUATION"); // Used for Testing
-                    return;
-                }
-            }
-            if (!validChoice) {
-                System.out.println("\nInvalid choice, try again!");
-                System.out.println("--------------------------\n");
-            }
-        } while(!choice.equals("Back"));
-    }
-
-    /*
-    * A simple method to check all visited and unvisted rooms
-    */
-    public static void checkMap() {
-
-        clock.pause();
-
-        System.out.println("\n\n------- Dom's Map -------\n");
-        System.out.println("Visited Rooms:");
-        for (Room r : roomList) {
-            if (r.isVisited()) {
-                System.out.println("- " + r.getRoomName());
-            }
+    private static void countVisits(Room r) {
+        String key = r.getRoomName();
+        if(visits.containsKey(key)) {
+            visits.put(key, visits.get(key) + 1);
+        } else {
+            visits.put(key, 1);
         }
-        System.out.println("-------------------------\n");
-        
-        clock.resume();
+    }
+    
+    /*
+     * A simple method to check all visited and unvisited rooms
+     */
+    public static void printVisitMap() {
+        System.out.println("---------------- Dom's Map ----------------");
+        System.out.println("Visited Rooms (visits):");
+        for (Entry<String, Integer> entry : visits.entrySet()) {
+            System.out.println("- " + entry.getKey() + " (" + entry.getValue() + ")");
+        }
+        System.out.println("-------------------------------------------\n");
     }
 
     /**
-    * A Simple method to give a summary about time
-    */
+     * A Simple method to give a summary about time
+     */
     public static void displayTimeSummary() {
-        System.out.println("\n\n---------- Dom's Time Summary ----------\n");
-
         // Display time left before the owner returns
-        System.out.println("Time Remaining: " + clock.getRemainingTime());
-    
-        // // List visited rooms
-        // System.out.println("Visited Rooms:");
-        // for (Room r : roomList) {
-        //     if (r.isVisited()) {
-        //         System.out.println("- " + r.getRoomName());      // There is an option for this in the 'Check Map' option though, so I don't think we need this
-        //     }
-        // }
-    
-        System.out.println("-------------------------------------\n");
+        System.out.println("\n----------- Dom's Time Summary ------------");
+        System.out.println(clock.printTime());
+        System.out.println("-------------------------------------------\n");
     }
-
-    /*
-    * This method pritchs a message if Gary has been catch
-    */
-    public static void catchGary() {
-        System.out.println("-----------------------------------------------------------------------------------------\n");
-        System.out.println("\nCONGRATULATIONS! DOM HAS CAUGHT GARY!!!");
-        hasCaughtGary = true;
-        gameOver = true; // End the game as a win
-        displayEndGameSummary();
-    }
-
-    /*
-    * Method to display summary of information when the game ends
-    */
-    public static void displayEndGameSummary() {
-        System.out.println("\n---------- End of Game Summary ----------\n");
-
-        if (!hasCaughtGary && (clock.getHours() == 0 && clock.getMinutes() == 0)) {
-            // Time ran out
-            System.out.println("Time has run out! Your owner has returned home, and Gary is still loose!\n");
-            System.out.println("GAME OVER - YOU LOST! :(\n");
-        } else if (hasCaughtGary) {
-            // Gary was caught with time limit
-            System.out.println("CONGRATULATIONS, YOU HAVE WON!!! :)\n");
-            System.out.println("You found Gary with... " + clock.getRemainingTime() + " to spare!");
+    
+    /**
+     * This method prints the Game Over depending on why the game ended
+     */
+    public static void theEnd() {
+        System.out.println("\n----------------- The End -----------------");
+        if (hasCaughtGary) {
+            System.out.println("CONGRATULATIONS, YOU HAVE WON!!! :)");
+            System.out.println("DOM HAS CAUGHT GARY!!!");
+        } else if (clock.getHours() == 0 && clock.getMinutes() == 0) {
+            System.out.println("GAME OVER - YOU LOST! :(");
+            System.out.println("Time has run out! Your owner has returned home, and Gary is still loose!");
+        } else if (checkTraps()) {
+            System.out.println("GAME OVER - YOU LOST! :(");
+            System.out.println("Dom has been caught in too many traps and can't continue!");
+        } else {
+            System.out.println("Game Quit");
         }
-
         displayStats();
-        gameOver = true;
+        printVisitMap();
     }
 
-    /*
-    * Method that prints game statics
-    * Called in the enf of game Summary 
-    */
+    /**
+     * Method that prints game statics. Called in the end of game Summary
+     */
     public static void displayStats() {
-        System.out.println("\n------------- Game Statistics -------------\n");
-        System.out.println("Problems Encountered: " + problemsEncountered);
-        System.out.println("Traps Encountered: " + trapsEncountered + " | Traps Solved: " + trapsSolved);
-        System.out.println("Puzzles Encountered: " + puzzlesEncountered + " | Puzzles Solved: " + puzzlesSolved);
+        System.out.println("------------- Game Statistics -------------");
+        System.out.println(clock.printTime());
         System.out.println("Turns Forfeited: " + forfeits);
-        System.out.println("------------------------------------------\n");
-    }
-
-    /*
-    * Method to display you have lost from too many traps
-    */
-    public static void gameOverTraps() {
-        System.out.println("\n--- GAME OVER! ---\n");
-        System.out.println("Dom has been caught in too many traps and can't continue!\n");
-        gameOver = true;
-        displayEndGameSummary();
-    }
-
-    /**
-     * Prints game over message stating how and why the game ended
-     */
-    public static void gameOverMessage() {
-        System.out.println("Game Over!");
-        System.out.println("----------\n");
-    }
-    
-    /**
-     * Getter method for currentRoom variable
-     * 
-     * @return the current room of the user
-     */
-    public static Room getCurrentRoom() {
-        return currentRoom;
-    }
-    
-    /**
-     * Setter method for the currentRoom variable
-     * 
-     * @param currentRoom the room the current room is to be set to
-     */
-    public static void setCurrentRoom(Room currentRoom) {
-        Game.currentRoom = currentRoom;
+        System.out.println("Traps Encountered: " + trapsEncountered);
+        System.out.println("Traps Solved: " + trapsSolved);
+        System.out.println("Puzzles Encountered: " + puzzlesEncountered);
+        System.out.println("Puzzles Solved: " + puzzlesSolved);
+        System.out.println("Problems Encountered: " + problemsEncountered);
+        System.out.println("Problems Best case: " + problemsSolved);
+        System.out.println("Taunts Encountered: " + tauntsEncountered);
+        System.out.println("Gary Encounters: " + GaryEncounters);
+        System.out.println("Garys Caught: " + GarysCaught);
+        //System.out.println("-------------------------------------------");
     }
 }
