@@ -1,31 +1,30 @@
 /**
- * Class: DiningRoom
+ * Class: DiningRoom 
  * 
- * @author: Group F CSE 201
+ * Author: Group F CSE 201
  * 
- * This is a child class of Room. This class represents the dining room in our game,
- * where players encounter unique scenarios and interact based on their choices.
- * The room offers various challenges such as traps, puzzles, and problems,
- * each affecting the game state differently.
+ * This is child class of Room. This class is to implement one of the rooms 
+ * in our game for the user to interact with. The room will provide scenarios and effects based
+ * on user input.
  */
+
 import java.util.Scanner;
-/*
+
+/**
 * Child class of room to represent a DiningROom
 */
 public class DiningRoom extends Room {
-
     /**
-     * Constructor to build the room and pass the room name to the parent class.
+     * Constructor method for DiningRoom
      */
     public DiningRoom() {
         super("DiningRoom");
     }
-    
+
     /**
-     * Creates the trap scenario for the user in the Dining Room.
-     * The player inputs a choice to avoid the falling chandelier trap.
+     * Gives options to get out of a trap set by Gary
      * 
-     * @param sc Scanner object for user input.
+     * @param sc System.in Scanner for user I/O
      */
     @Override
     public void trap(Scanner sc) {
@@ -33,8 +32,7 @@ public class DiningRoom extends Room {
 
         System.out.println("\nRoom Description: The dining room has a long table with chairs around it, and a chandelier above.");
         System.out.println("Situation: Gary has loosened the screws on the chandelier above the table. It might fall any moment!");
-        System.out.println("-------------------------");
-
+        System.out.println("-------------------------------------------");
         String userInput;
         boolean invalidChoice = false;
 
@@ -46,51 +44,39 @@ public class DiningRoom extends Room {
             System.out.println("2 -> Carefully walk around the edges of the room.");
             System.out.println("3 -> Try to quickly fix the screws on the chandelier.");
             System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");
-
             System.out.print("\nPlease enter your option: ");
             userInput = sc.nextLine().trim();
 
             switch (userInput) {
-                case "1":
-                    System.out.println("\nYou crawled under the table and avoided the falling chandelier.\n---\n");
-                    Game.trapsSolved++;
-                    break;
-                case "2":
-                    System.out.println("\nYou carefully walked around the room, but it took some extra time.\n---\n");
-                    Game.clock.deductTime(5);
-                    Game.unsolvedTraps++;
-                    break;
-                case "3":
-                    System.out.println("\nYou tried to fix the chandelier, but it fell anyway!\n---\n");
-                    Game.clock.deductTime(10);
-                    Game.unsolvedTraps++;
-                    break;
-                case "4":
-                    System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);
-                    Game.forfeits++;
-                    Game.unsolvedTraps++;
-                    break;
-                default:
-                    System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
-                    System.out.println("-------------------------------------------\n");
-                    invalidChoice = true;
+            case "1":
+                System.out.println("\nYou crawled under the table and avoided the falling chandelier.\n---\n");
+                Game.trapsSolved++;
+                break;
+            case "2":
+                System.out.println("\nYou carefully walked around the room, but it took some extra time.\n---\n");
+                Game.clock.deductTime(5);
+                break;
+            case "3":
+                System.out.println("\nYou tried to fix the chandelier, but it fell anyway!\n---\n");
+                Game.clock.deductTime(10);
+                break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                Game.clock.deductTime(30);
+                Game.forfeits++;
+                break;
+            default:
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                System.out.println("-------------------------------------------\n");
+                invalidChoice = true;
             }
-
-        if (Game.unsolvedTraps >= Game.MAX_UNSOLVED_TRAPS) {
-            Game.gameOverTraps();
-            return;
-        }
-
-
         } while (invalidChoice);
     }
-    
+
     /**
-     * Creates a puzzle scenario for the user in the Dining Room.
-     * The player inputs a choice to solve the puzzle involving a table arrangement.
+     * Gives options to solve a puzzle set by Gary
      * 
-     * @param sc Scanner object for user input.
+     * @param sc System.in Scanner for user I/O
      */
     @Override
     public void puzzle(Scanner sc) {
@@ -98,8 +84,7 @@ public class DiningRoom extends Room {
 
         System.out.println("\nRoom Description: The dining room has a large table set for a feast.");
         System.out.println("Situation: A note on the table reads, 'To find your prize, align the items on the table as they would be during a royal dinner.'");
-        System.out.println("-------------------------");
-
+        System.out.println("-------------------------------------------");
         String userInput;
         boolean invalidChoice = false;
 
@@ -111,41 +96,39 @@ public class DiningRoom extends Room {
             System.out.println("2 -> Glasses on the left, plates on the right.");
             System.out.println("3 -> Both plates and glasses in the center.");
             System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");
-
             System.out.print("\nPlease enter your option: ");
             userInput = sc.nextLine().trim();
 
             switch (userInput) {
-                case "1":
-                    System.out.println("\nCorrect! You solved the puzzle and found a small key hidden under a plate.\n---\n");
-                    Game.puzzlesSolved++;
-                    break;
-                case "2":
-                    System.out.println("\nIncorrect arrangement. Try again next time.\n---\n");
-                    Game.clock.deductTime(5);
-                    break;
-                case "3":
-                    System.out.println("\nThe arrangement was wrong, and it wasted some time.\n---\n");
-                    Game.clock.deductTime(5);
-                    break;
-                case "4":
-                    System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);
-                    Game.forfeits++;
-                    break;
-                default:
-                    System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
-                    System.out.println("-------------------------------------------\n");
-                    invalidChoice = true;
+            case "1":
+                System.out.println("\nCorrect! You solved the puzzle and found a small key hidden under a plate.\n---\n");
+                Game.puzzlesSolved++;
+                break;
+            case "2":
+                System.out.println("\nIncorrect arrangement. Try again next time.\n---\n");
+                Game.clock.deductTime(5);
+                break;
+            case "3":
+                System.out.println("\nThe arrangement was wrong, and it wasted some time.\n---\n");
+                Game.clock.deductTime(5);
+                break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                Game.clock.deductTime(30);
+                Game.forfeits++;
+                break;
+            default:
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                System.out.println("-------------------------------------------\n");
+                invalidChoice = true;
             }
         } while (invalidChoice);
     }
-    
+
     /**
-     * Creates a problem scenario for the user in the Dining Room.
-     * The player chooses an option to handle the spilled soup problem.
+     * Gives options to handle a trap set by Gary
      * 
-     * @param sc Scanner object for user input.
+     * @param sc System.in Scanner for user I/O
      */
     @Override
     public void problem(Scanner sc) {
@@ -153,8 +136,7 @@ public class DiningRoom extends Room {
 
         System.out.println("\nRoom Description: The dining room is filled with a delicious aroma, but something seems off.");
         System.out.println("Situation: Gary has overturned a bowl of soup, and it's spilling all over the tablecloth!");
-        System.out.println("-------------------------");
-
+        System.out.println("-------------------------------------------");
         String userInput;
         boolean invalidChoice = false;
 
@@ -166,58 +148,98 @@ public class DiningRoom extends Room {
             System.out.println("2 -> Replace the tablecloth.");
             System.out.println("3 -> Place the bowl upright and clean the spill.");
             System.out.println("4 -> Give up and forfeit this turn, but keep in mind it will be a 30 minutes penalty!");
-
             System.out.print("\nPlease enter your option: ");
             userInput = sc.nextLine().trim();
 
             switch (userInput) {
-                case "1":
-                    System.out.println("\nYou wiped up the soup, but it took up some time.\n---\n");
-                    Game.clock.deductTime(10);
-                    break;
-                case "2":
-                    System.out.println("\nYou replaced the tablecloth, but it took up some time.\n---\n");
-                    Game.clock.deductTime(10);
-                    break;
-                case "3":
-                    System.out.println("\nYou fixed the spill quickly.\n---\n");
-                    Game.clock.deductTime(5);
-                    break;
-                case "4":
-                    System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
-                    Game.clock.deductTime(30);
-                    Game.forfeits++;
-                    break;
-                default:
-                    System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
-                    System.out.println("-------------------------------------------\n");
-                    invalidChoice = true;
+            case "1":
+                System.out.println("\nYou wiped up the soup, but it took up some time.\n---\n");
+                Game.clock.deductTime(10);
+                break;
+            case "2":
+                System.out.println("\nYou replaced the tablecloth, but it took up some time.\n---\n");
+                Game.clock.deductTime(10);
+                break;
+            case "3":
+                System.out.println("\nYou fixed the spill quickly.\n---\n");
+                Game.clock.deductTime(5);
+                Game.problemsSolved++;
+                break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn.\n---\n");
+                Game.clock.deductTime(30);
+                Game.forfeits++;
+                break;
+            default:
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                System.out.println("-------------------------------------------\n");
+                invalidChoice = true;
             }
-
         } while (invalidChoice);
     }
-    
+
     /**
-     * Provides a taunt scenario for the user in the Dining Room.
-     * Gary mocks the player with a clue about his location.
+     * Prints a taunt message from Gary
      * 
-     * @param sc Scanner object for user input.
+     * @param sc System.in Scanner for user I/O
      */
     @Override
     public void taunt(Scanner sc) {
+        Game.tauntsEncountered++;
         System.out.println("\nGary left a crumb trail to mock you, hinting he's hiding somewhere else!\n---\n");
     }
-  
+
     /**
-     * Catches Gary in the Dining Room and triggers the end game summary.
+     * If Gary is currently in the room, gives options to catch Gary and win the
+     * game
      * 
-     * @param sc Scanner object for user input.
+     * @param sc System.in Scanner for user I/O
      */
-    @Override
     public void catchGary(Scanner sc) {
-        System.out.println("\nGary is hiding under the dining table! You've caught him!\n---\n");
-        Game.hasCaughtGary = true;
-        Game.gameOver = true;
-        Game.displayEndGameSummary();
+        Game.GaryEncounters++;
+        
+        System.out.println("\nRoom Description: The dining room has a long table with chairs around it, and a chandelier above.");
+        System.out.println("Situation: Gary is swinging from the chandelier!");
+        System.out.println("-------------------------------------------");
+        String userInput;
+        boolean invalidChoice = false;
+
+        do {
+            invalidChoice = false;
+
+            System.out.println("Enter the number that corresponds with what you want to do:\n");
+            System.out.println("1 -> Wait under the chandelier to catch him when he drops.");
+            System.out.println("2 -> Jump onto the chandelier to grab him.");
+            System.out.println("3 -> Knock him down with a broom and grab him.");
+            System.out.println("4 -> Give up and forfeit this turn, but keep in mind you will lose 30 minutes if you do so.");
+            System.out.print("\nPlease enter your option: ");
+            userInput = sc.nextLine().trim();
+
+            switch (userInput) {
+            case "1":
+                System.out.println("\nHe tries to swing past you, but with your cat reflexes you jump and grab him!\n---\n");
+                Game.GarysCaught++;
+                Game.hasCaughtGary = true;
+                Game.gameOver = true;
+                break;
+            case "2":
+                System.out.println("\nYou Jump up. He Jumps down. The chandelier falls from your weight.\n---\n");
+                Game.clock.deductTime(20);
+                break;
+            case "3":
+                System.out.println("\nHe Takes the broom from you and hits you with it, while your distracked he escapes.\n---\n");
+                Game.clock.deductTime(20);
+                break;
+            case "4":
+                System.out.println("\nYou chose to give up and forfeit this turn. Gary Escapes.\n---\n");
+                Game.clock.deductTime(30);
+                Game.forfeits++;
+                break;
+            default:
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4!");
+                System.out.println("-------------------------------------------\n");
+                invalidChoice = true;
+            }
+        } while (invalidChoice);
     }
 }
